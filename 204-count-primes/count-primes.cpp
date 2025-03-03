@@ -1,9 +1,9 @@
 class Solution {
 public:
     void fillsieve(vector<int>&sieve){
-        int n=sieve.size()-1;
+        int n=sieve.size();
         for(int i=2;i<=sqrt(n);i++){
-            for(int j=i*2;j<=n;j+=i){
+            for(int j=i*2;j<n;j+=i){
                 sieve[j]=0;
             }
         }
