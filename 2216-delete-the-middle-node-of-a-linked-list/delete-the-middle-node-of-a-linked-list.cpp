@@ -6,7 +6,7 @@ public:
         if(head->next==NULL){
             return NULL;
         }
-        while(fast->next!=NULL && fast->next->next!=NULL){
+        while(fast->next->next!=NULL){
             fast=fast->next->next;
             if(fast->next==NULL) break;
             slow=slow->next;
