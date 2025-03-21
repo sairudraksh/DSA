@@ -20,6 +20,9 @@ public:
         }
         if(lstidx==-1) return {-1,-1};
         int maxd=lstidx-stidx;
+       //till here to  find max;
+
+
         int minidx=INT_MAX;
         idx=1;
         stidx=-1;
