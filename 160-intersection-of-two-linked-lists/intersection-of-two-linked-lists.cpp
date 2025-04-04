@@ -3,40 +3,35 @@ public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
         ListNode* tempA=headA;
         ListNode* tempB=headB;
-        int lenA=0;
-        while(tempA!=NULL){// to find len of a;
-            lenA++;
+        int sizeA=0;
+        int sizeB=0;
+        while(tempA!=NULL){
             tempA=tempA->next;
+            sizeA++;
         }
-        int lenB=0;
-        while(tempB!=NULL){//to find len of b;
-            lenB++;
+        while(tempB!=NULL){
             tempB=tempB->next;
+            sizeB++;
+        }
+        int k=0;
+        if(sizeA>=sizeB){
+            k=sizeA-sizeB;
+            for(int i=0;i<k;i++){
+                headA=headA->next;
+            }
+        }
+        else{
+            k=sizeB-sizeA;
+            for(int i=0;i<k;i++){
+                headB=headB->next;
+            }
         }
         tempA=headA;
         tempB=headB;
-        int diff=0;
-        if(lenA>lenB){//if a is greater
-            diff=lenA-lenB;
-            for(int i=1;i<=diff;i++){
-                tempA=tempA->next;
-            }
-            while(tempA!=tempB){//check when they are equal or we can say intersect
-                tempA=tempA->next;
-                tempB=tempB->next;
-            }
-            return tempA;//or tempb;
+        while(tempA!=tempB){
+            tempA=tempA->next;
+            tempB=tempB->next;
         }
-        else{//if b is less than or equal to a;
-            diff=lenB-lenA;
-            for(int i=1;i<=diff;i++){
-                tempB=tempB->next;
-            }
-            while(tempA!=tempB){//check when they are equal or we can say intersect
-                tempA=tempA->next;
-                tempB=tempB->next;
-            }
-            return tempA;//or tempb
-        }
+        return tempA;
     }
 };
