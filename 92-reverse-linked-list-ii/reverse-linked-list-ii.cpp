@@ -1,39 +1,49 @@
 class Solution {
 public:
     ListNode* reverse(ListNode* head) {
-        ListNode* prev=NULL;
-        ListNode* curr=head;
-        ListNode* next=head;
-        while(curr!=NULL){
-            next=curr->next;
-            curr->next=prev;
-            prev=curr;
-            curr=next;
+        if(head==NULL) return NULL;
+        else if(head->next==NULL) return head;
+        ListNode* s=head;
+        ListNode* f=head->next;
+        ListNode* fs=head->next->next;
+        head->next=NULL;
+        while(f!=NULL){
+            f->next=s;
+            s=f;
+            f=fs;
+            if(fs!=NULL) fs=fs->next;
         }
-        return prev;
+        return s;
     }
     ListNode* reverseBetween(ListNode* head, int left, int right) {
-        if(left==right) return head;
-        ListNode* a=NULL;
-        ListNode* b=NULL;
-        ListNode* c=NULL;
-        ListNode* d=NULL;
-        int n=1;
-        ListNode* temp=head;
-        while(temp){
-            if(n==left-1) a=temp;
-            if(n==left) b=temp;
-            if(n==right) c=temp;
-            if(n==right+1) d=temp;
-            temp=temp->next;
-            n++;
+        if(head==NULL || head->next==NULL || left==right) return head;
+        if(left == 1){
+            ListNode* t2 = head;
+            for(int i = 1; i < right; i++){
+                t2 = t2->next;
+            }
+            ListNode* temp2 = t2->next;
+            t2->next = NULL;
+            ListNode* c = reverse(head);
+            head->next = temp2;
+            return c;
         }
-        if(a) a->next=NULL;
-        c->next=NULL;
-        c=reverse(b);
-        if(a!=NULL) a->next=c;
-        b->next=d;
-        if(a) return head;
-        return c;
+        ListNode* t1=head;
+        ListNode* t2=head;
+        ListNode* temp1=head;
+        ListNode* temp2=head;
+        for(int i=1;i<left-1;i++){
+            t1=t1->next;
+        }
+        temp1=t1->next;
+        for(int i=1;i<right;i++){
+            t2=t2->next;
+        }
+        temp2=t2->next;
+        t2->next=NULL;
+        ListNode* c=reverse(temp1);
+        t1->next=c;
+        temp1->next=temp2;
+        return head;
     }
 };
