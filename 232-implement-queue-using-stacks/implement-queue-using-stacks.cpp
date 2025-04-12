@@ -2,14 +2,14 @@ class MyQueue {
 public:
     stack<int>st;
     stack<int>helper;
-    MyQueue(){
+    MyQueue() {
         
     }
+    
     void push(int x) {
         st.push(x);
     }
-    
-    int pop(){
+    int pop() {
         while(st.size()>0){
             helper.push(st.top());
             st.pop();
@@ -33,11 +33,10 @@ public:
             st.push(helper.top());
             helper.pop();
         }
-        return x;
-        
+        return x;        
     }
     
-    bool empty(){
+    bool empty() {
         if(st.size()==0) return true;
         else return false;
         
