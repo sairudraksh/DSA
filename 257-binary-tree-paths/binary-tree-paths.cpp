@@ -4,7 +4,10 @@ public:
         if(root==NULL) return;
         st+=to_string(root->val);
         if(root->left!=NULL || root->right!=NULL) st+="->";
-        if(root->left==NULL && root->right==NULL) s.push_back(st);
+        if(root->left==NULL && root->right==NULL){
+            s.push_back(st);
+            return;
+        }
         treepath(s,st,root->left);
         treepath(s,st,root->right);
     }
