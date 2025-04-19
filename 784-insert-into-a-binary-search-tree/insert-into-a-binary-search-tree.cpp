@@ -11,8 +11,7 @@ public:
                 root->left=temp;
                 return root ;
             }
-            insertIntoBST(root->left,val);
-            
+            insertIntoBST(root->left,val); 
         }
         else{
             if(root->right==NULL){
