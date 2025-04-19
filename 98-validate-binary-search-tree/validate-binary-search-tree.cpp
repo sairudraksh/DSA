@@ -1,18 +1,20 @@
 class Solution {
 public:
-    long long maxTree(TreeNode* root){
-        if(root==NULL) return LLONG_MIN;
-        return max((long long)(root->val),max(maxTree(root->left),maxTree(root->right)));
-    }
-    long long minTree(TreeNode* root){
-        if(root==NULL) return LLONG_MAX;
-        return min((long long)(root->val),min(minTree(root->left),minTree(root->right)));
+    void validate(TreeNode* root,vector<int>&v){
+        if(root==NULL) return;
+        validate(root->left,v);
+        v.push_back(root->val);
+        validate(root->right,v);
     }
     bool isValidBST(TreeNode* root) {
-        if(root==NULL) return true;
-        else if((long long)(root->left)==NULL && root->right==NULL) return true;
-        else if((long long)(root->val) <= maxTree(root->left)) return false;
-        else if((long long)(root->val) >= minTree(root->right)) return false;
-        return isValidBST(root->left) && isValidBST(root->right);
+        vector<int>v;
+        validate(root,v);
+        int n=v.size();
+        for(int i=0;i<n-1;i++){
+            if(v[i]>=v[i+1]){
+                return false;
+            }
+        }
+        return true;
     }
 };
