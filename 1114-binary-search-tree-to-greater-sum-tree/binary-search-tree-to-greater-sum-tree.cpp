@@ -1,17 +1,15 @@
 class Solution {
 public:
-    int sum=0;
-    void inorder(TreeNode* root){
+    void find(TreeNode* root,int &sum){
         if(root==NULL) return;
-        inorder(root->right);
-        if(root==NULL) return;
+        find(root->right,sum);
         root->val=root->val+sum;
         sum=root->val;
-        inorder(root->left);
-
+        find(root->left,sum);
     }
     TreeNode* bstToGst(TreeNode* root) {
-        inorder(root);
-        return root;  
+        int sum=0;
+        find(root,sum);
+        return root;
     }
 };
