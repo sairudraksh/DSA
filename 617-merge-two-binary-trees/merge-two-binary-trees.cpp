@@ -8,4 +8,4 @@ public:
         root1->right=mergeTrees(root1->right,root2->right);
         return root1;
     }
-};
+};//many nodes can point on a single node but a node can point ont 2 nodes only;
