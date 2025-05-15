@@ -3,12 +3,12 @@ public:
     int maxNumberOfBalloons(string text) {
         unordered_map<char,int>map;
         for(int i=0;i<text.length();i++){
-            map[text[i]]++;
+            map[text[i]]++;//o(n)
         }
         int count=0;
-        while(!map.empty()){
+        while(!map.empty()){//o(n) worst case
             string s="balloon";
-            for(int i=0;i<s.length();i++){
+            for(int i=0;i<s.length();i++){//n/7 worst case that every element forms ballon
                 int flagg=0;
                 for(auto x:map){
                     if(x.first==s[i]){
