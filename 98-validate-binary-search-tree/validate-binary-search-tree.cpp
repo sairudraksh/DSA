@@ -1,19 +1,17 @@
 class Solution {
-public:
-    void inorder(TreeNode* root,vector<int>&v){
+public: 
+    void find(TreeNode *root,vector<int>&v){
         if(root==NULL) return;
-        inorder(root->left,v);
+        find(root->left,v);
         v.push_back(root->val);
-        inorder(root->right,v);
+        find(root->right,v);
     }
     bool isValidBST(TreeNode* root) {
         vector<int>v;
-        inorder(root,v);
+        find(root,v);
         int n=v.size();
-        for(int i=0;i<n-1;i++){
-            if(v[i]>=v[i+1]){
-                return false;
-            }
+        for(int i=1;i<n;i++){
+            if(v[i]<=v[i-1]) return false;
         }
         return true;
     }
