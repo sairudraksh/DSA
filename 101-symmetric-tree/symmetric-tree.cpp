@@ -1,37 +1,35 @@
 class Solution {
-public: 
-    void leftside(TreeNode* root,vector<int>&v1){
+public:
+    void rightside(TreeNode* root,vector<int>&v){
         if(root==NULL){
-            v1.push_back(-100);
+            v.push_back(INT_MIN);
             return;
         }
-        v1.push_back(root->val);
-        leftside(root->left,v1);
-        leftside(root->right,v1);
+        v.push_back(root->val);
+        rightside(root->right,v);
+        rightside(root->left,v);
     }
-    void rightside(TreeNode* root,vector<int>&v1){
+    void leftside(TreeNode* root,vector<int>&v){
         if(root==NULL){
-            v1.push_back(-100);
+            v.push_back(INT_MIN);
             return;
         }
-        v1.push_back(root->val);
-        rightside(root->right,v1);
-        rightside(root->left,v1);
+        v.push_back(root->val);
+        leftside(root->left,v);
+        leftside(root->right,v);
     }
     bool isSymmetric(TreeNode* root) {
         if(root==NULL) return true;
+        if(root->left==NULL && root->right==NULL) return true;
         vector<int>v1;
-        leftside(root->left,v1);
         vector<int>v2;
+        leftside(root->left,v1);
         rightside(root->right,v2);
-        if(v1.size()!=v2.size()){
-            return false;
-        }
-        int n=v1.size();
-        for(int i=0;i<n;i++){
-            if(v1[i]!=v2[i]){
-                return false;
-            }
+        int n1=v1.size();
+        int n2=v2.size();
+        if(n1!=n2) return false;
+        for(int i=0;i<n1;i++){
+            if(v1[i]!=v2[i]) return false;
         }
         return true;
     }
