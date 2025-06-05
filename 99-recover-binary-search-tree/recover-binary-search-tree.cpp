@@ -1,50 +1,39 @@
 class Solution {
-public:
-    void find(TreeNode* root,int &ans1,int &ans2,int &x,int &y){
-        if(x!=0 && y!=0) return;
-        else if(root==NULL) return;
-        else if(root->val==ans1){
-            if(x==0){
-                root->val=ans2;
-                x++;
-            }
-        }
-        else if(root->val==ans2){
-            if(y==0){
-                root->val=ans1;
-                y++;
-            }
-        }
-        find(root->left,ans1,ans2,x,y);
-        find(root->right,ans1,ans2,x,y);
-    }
-    void Inorder(TreeNode* root, vector<int>&v){
+public: 
+    void traverse(TreeNode* root,int ans1,int ans2){
         if(root==NULL) return;
-        Inorder(root->left,v);
+        if(root->val==ans1) root->val=ans2;
+        else if(root->val==ans2) root->val=ans1;
+        traverse(root->left,ans1,ans2);
+        traverse(root->right,ans1,ans2);
+    }
+    void find(TreeNode* root,vector<int>&v){
+        if(root==NULL) return;
+        find(root->left,v);
         v.push_back(root->val);
-        Inorder(root->right,v);
+        find(root->right,v);
     }
     void recoverTree(TreeNode* root) {
-        if(root==NULL) return;
         vector<int>v;
-        Inorder(root,v);
+        find(root,v);
+        int n=v.size();
         int ans1=0;
         int ans2=0;
         int count=0;
-        for(int i=0;i<v.size()-1;i++){
-            if(count==0){
-                if(v[i]>v[i+1]){
-                    ans1=v[i];
-                    ans2=v[i+1];
+        for(int i=1;i<n;i++){
+            if(v[i]<v[i-1]){
+                if(count==0){
+                    ans1=v[i-1];
+                    ans2=v[i];
+                    count++;
+                }
+                else if(count==1){
+                    ans2=v[i];
                     count++;
                 }
             }
-            else if(v[i]>v[i+1]){
-                ans2=v[i+1];
-            }
+            if(count==2) break;
         }
-        int x=0;
-        int y=0;
-        find(root,ans1,ans2,x,y);
+        traverse(root,ans1,ans2);
     }
 };
