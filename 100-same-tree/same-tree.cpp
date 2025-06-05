@@ -1,12 +1,20 @@
 class Solution {
 public:
-    bool isSameTree(TreeNode* p, TreeNode* q) {
+    bool find(TreeNode* p,TreeNode* q){
         if(p==NULL && q==NULL) return true;
-        else if(p==NULL && q!=NULL || p!=NULL && q==NULL) return false;
+        if((p==NULL && q!=NULL) ||  (p!=NULL && q==NULL)){
+            return false;
+        }
         if(p->val!=q->val) return false;
-        int lft=isSameTree(p->left,q->left);
-        int rght=isSameTree(p->right,q->right);
-        if(lft==false || rght ==false) return false;
-        else return true;
+        bool a=true;
+        bool b=true;
+        a=find(p->left,q->left);
+        b=find(p->right,q->right);
+        if(a==true && b==true) return true;
+        else return false;
+    }
+    bool isSameTree(TreeNode* p, TreeNode* q) {
+        bool a=find(p,q);
+        return a;
     }
 };
