@@ -1,26 +1,30 @@
 class Solution {
 public:
-    void ordertraversal(int target,int curr,vector<int>&v,vector<vector<int>>&v1,TreeNode* root){
+    void find(TreeNode* root,vector<int>&v,int curr,int target){
         if(root==NULL) return;
         if(curr==target){
             v.push_back(root->val);
             return;
         }
-        if(curr<target){
-            ordertraversal(target,curr+1,v,v1,root->left);
-            ordertraversal(target,curr+1,v,v1,root->right);
-        }
+        find(root->left,v,curr+1,target);
+        find(root->right,v,curr+1,target);
     }
-    int size(TreeNode* root){
+    int levels(TreeNode* root){
         if(root==NULL) return 0;
-        return 1+max(size(root->left) , size(root->right));
+        return 1+max(levels(root->left),levels(root->right));
     }
     vector<vector<int>> levelOrder(TreeNode* root) {
-        int n=size(root);
         vector<vector<int>>v1;
+        int n=levels(root);
+        if(n==1){
+            vector<int>v;
+            v.push_back(root->val);
+            v1.push_back(v);
+            return v1;
+        }
         for(int i=1;i<=n;i++){
             vector<int>v;
-            ordertraversal(i,1,v,v1,root);
+            find(root,v,1,i);
             v1.push_back(v);
         }
         return v1;
