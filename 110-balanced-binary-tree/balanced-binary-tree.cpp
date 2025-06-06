@@ -1,18 +1,22 @@
 class Solution {
 public:
-    int dept(TreeNode* root){
+    int find(TreeNode* root){
         if(root==NULL) return 0;
-        return 1+max(dept(root->left),dept(root->right)); 
+        return 1+max(find(root->left),find(root->right));
     }
     bool isBalanced(TreeNode* root) {
         if(root==NULL) return true;
-        int a=dept(root->left);
-        int b=dept(root->right);
-        bool c=isBalanced(root->left);
-        bool d=isBalanced(root->right);
-        if(!c || !d) return false;
-        if(a>=b && a-b<=1) return true;
-        else if(b>a && b-a<=1) return true;
-        else return false;
+        int n1=find(root->left);
+        int n2=find(root->right);
+        if(n1>=n2){
+            if((n1-n2)>1) return false;
+        }
+        else if(n2>n1){
+            if((n2-n1)>1) return false;
+        }
+        bool a=isBalanced(root->left);
+        bool b=isBalanced(root->right);
+        if(a==true && b==true) return true;
+        return false;
     }
 };
