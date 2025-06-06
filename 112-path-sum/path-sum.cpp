@@ -1,19 +1,20 @@
 class Solution {
 public:
-    void sumpath(TreeNode* root,int target,int sum,bool &flagg){
+    void find(TreeNode* root,int sum,int targetSum,bool &flagg){
         if(root==NULL) return;
         sum=sum+root->val;
         if(root->left==NULL && root->right==NULL){
-            if(sum==target) flagg=true;
+            if(sum==targetSum) flagg=true;
             return;
         }
-        sumpath(root->left,target,sum,flagg);
-        sumpath(root->right,target,sum,flagg);
+        find(root->left,sum,targetSum,flagg);
+        find(root->right,sum,targetSum,flagg);
     }
     bool hasPathSum(TreeNode* root, int targetSum) {
-        bool flagg=false;
+        if(root==NULL) return false;
         int sum=0;
-        sumpath(root,targetSum,sum,flagg);
+        bool flagg=false;
+        find(root,sum,targetSum,flagg);
         return flagg;
     }
 };
