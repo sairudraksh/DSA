@@ -1,18 +1,18 @@
 class Solution {
 public:
-    void mindept(TreeNode* root,int currdept,int &minidept){
+    void find(TreeNode* root,int curr,int &min){
         if(root==NULL) return;
         if(root->left==NULL && root->right==NULL){
-            if(currdept<minidept) minidept=currdept;
+            if(curr<min) min=curr;
         }
-        mindept(root->left,currdept+1,minidept);
-        mindept(root->right,currdept+1,minidept);            
+        find(root->left,curr+1,min);
+        find(root->right,curr+1,min);
     }
     int minDepth(TreeNode* root) {
         if(root==NULL) return 0;
-        int currdept=1;
-        int minidept=INT_MAX;
-        mindept(root,currdept,minidept);
-        return minidept;
+        int min=INT_MAX;
+        int curr=1;
+        find(root,curr,min);
+        return min;
     }
 };
