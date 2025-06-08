@@ -1,31 +1,29 @@
 class Solution {
 public:
-    int summ(TreeNode* root,int &sum){//to find sum for absolute difference and return one side value
-        if(root==NULL) return 0;
+    void summ(TreeNode* root,int &sum){
+        if(root==NULL) return;
         sum=sum+root->val;
         summ(root->left,sum);
         summ(root->right,sum);
-        return sum;
     }
-    void sol(TreeNode* root){// to put new values in trees
+    void answersum(TreeNode* root,int &finalans){
         if(root==NULL) return;
-        int suma=0;
-        int sumb=0;
-        root->val=abs(summ(root->left,suma)-summ(root->right,sumb));
-        sol(root->left);
-        sol(root->right);
-    }
-    int findsum(TreeNode* root,int &sum){//to find sum
-        if(root==NULL) return 0;
-        sum=sum+root->val;
-        findsum(root->left,sum);
-        findsum(root->right,sum);
-        return sum;
+        finalans=finalans+root->val;
+        answersum(root->left,finalans);
+        answersum(root->right,finalans);
     }
     int findTilt(TreeNode* root) {
         if(root==NULL) return 0;
-        sol(root);
-        int sum=0;
-        return findsum(root,sum);
+        int lftsum=0;
+        int rghtsum=0;
+        summ(root->left,lftsum);
+        summ(root->right,rghtsum);
+        int a=abs(lftsum-rghtsum);
+        root->val=a;
+        findTilt(root->left);
+        findTilt(root->right);
+        int finalans=0;
+        answersum(root,finalans);
+        return finalans;
     }
 };
