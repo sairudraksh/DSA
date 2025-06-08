@@ -2,12 +2,12 @@ class Solution {
 public:
     unordered_map<int,int>map;
     void find(TreeNode* root,int &sum){
-        if(root==NULL) return ;
-        find(root->left,sum);
+        if(root==NULL) return;
         sum=sum+root->val;
+        find(root->left,sum);
         find(root->right,sum);
     }
-    vector<int> findFrequentTreeSum(TreeNode* root) {
+    vector<int> findFrequentTreeSum(TreeNode* root){
         vector<int>v;
         if(root==NULL) return v;
         int sum=0;
@@ -16,11 +16,11 @@ public:
         findFrequentTreeSum(root->left);
         findFrequentTreeSum(root->right);
         int max=INT_MIN;
-        for(auto ele:map){
-            if(ele.second>max) max=ele.second;
+        for(auto &x:map){
+            if(x.second>max) max=x.second;
         }
-        for(auto ele :map){
-            if(ele.second==max) v.push_back(ele.first);
+        for(auto &x:map){
+            if(x.second==max) v.push_back(x.first);
         }
         return v;
     }
