@@ -1,19 +1,24 @@
 class Solution {
 public:
-    void treepath(vector<string>&s,string st,TreeNode* root){
+    void find(TreeNode* root,string str,vector<string>&v){
         if(root==NULL) return;
-        st+=to_string(root->val);//just add to string
-        if(root->left!=NULL || root->right!=NULL) st+="->";// add this everytime expect at leaf(last) node
-        if(root->left==NULL && root->right==NULL){//push ant ans when we are as last or leaf node
-            s.push_back(st);
-            return;
+        str+=to_string(root->val);
+        if(root->left!=NULL || root->right!=NULL) str+="->";
+        if(root->left==NULL && root->right==NULL){
+            v.push_back(str);
         }
-        treepath(s,st,root->left);
-        treepath(s,st,root->right);
+        find(root->left,str,v);
+        find(root->right,str,v);
     }
     vector<string> binaryTreePaths(TreeNode* root) {
         vector<string>v;
-        treepath(v,"",root);
+        string str="";
+        if(root->left==NULL && root->right==NULL){
+            str+=to_string(root->val);
+            v.push_back(str);
+            return v;
+        }
+        find(root,str,v);
         return v;
     }
 };
