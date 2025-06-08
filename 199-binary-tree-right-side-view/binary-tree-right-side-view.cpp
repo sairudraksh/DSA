@@ -1,13 +1,10 @@
 class Solution {
 public:
-    void find(TreeNode* root,int target,int curr,queue<int> &q){
+    void find(TreeNode* root,int curr,int target,int &ans){
         if(root==NULL) return;
-        if(curr==target){
-            if(q.size()>=1) q.pop();
-            q.push(root->val);
-        }
-        find(root->left,target,curr+1,q);
-        find(root->right,target,curr+1,q);
+        if(curr==target) ans=root->val;
+        find(root->left,curr+1,target,ans);
+        find(root->right,curr+1,target,ans);
     }
     int levels(TreeNode* root){
         if(root==NULL) return 0;
@@ -15,15 +12,14 @@ public:
     }
     vector<int> rightSideView(TreeNode* root) {
         int n=levels(root);
-        vector<int>v1;
-        if(root==NULL) return v1;
-        v1.push_back(root->val);
-        queue<int>q;
-        for(int i=2;i<=n;i++){
-            find(root,i,1,q);
-            v1.push_back(q.front());
-            q.pop();
+        vector<int>v;
+        if(root==NULL) return v;
+        for(int i=1;i<=n;i++){
+            int ans=0;
+            int curr=1;
+            find(root,curr,i,ans);
+            v.push_back(ans);
         }
-        return v1;
+        return v;
     }
 };
