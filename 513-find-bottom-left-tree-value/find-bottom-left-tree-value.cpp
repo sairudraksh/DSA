@@ -1,24 +1,25 @@
 class Solution {
 public:
-    void bottom(TreeNode* root,int curr,int target,vector<int>&v){
+    void find(TreeNode* root,int curr,int target,long long &min){
         if(root==NULL) return;
+        if(min!=LLONG_MIN) return;
         if(curr==target){
-            v.push_back(root->val);
+            min=root->val;
             return;
         }
-        bottom(root->left,curr+1,target,v);
-        bottom(root->right,curr+1,target,v);
+        find(root->left,curr+1,target,min);
+        if(min!=LLONG_MIN) return;
+        find(root->right,curr+1,target,min);
     }
-    int level(TreeNode *root){
+    int levels(TreeNode* root){
         if(root==NULL) return 0;
-        return 1+max(level(root->left),level(root->right));
+        return 1+max(levels(root->left),levels(root->right));
     }
     int findBottomLeftValue(TreeNode* root) {
-        if(root==NULL) return 0;
-        int n=level(root);
-        vector<int>v;
+        int n=levels(root);
         int curr=1;
-        bottom(root,curr,n,v);
-        return v[0];
+        long long int ans= LLONG_MIN;
+        find(root,curr,n,ans);
+        return ans;
     }
 };
