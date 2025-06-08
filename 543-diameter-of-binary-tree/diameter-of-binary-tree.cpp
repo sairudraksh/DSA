@@ -1,20 +1,18 @@
 class Solution {
 public:
     int maxdia=0;
-    int helper(TreeNode* root){
+    int find(TreeNode* root){
         if(root==NULL) return 0;
-        return 1+max(helper(root->left),helper(root->right));
-
+        return 1+max(find(root->left),find(root->right));
     }
     int diameterOfBinaryTree(TreeNode* root) {
         if(root==NULL) return 0;
-        int lft=helper(root->left);
-        int rht=helper(root->right);
+        int lft=find(root->left);
+        int rht=find(root->right);
         int dia=lft+rht;
-        maxdia=max(maxdia,dia);
+        maxdia=max(dia,maxdia);
         diameterOfBinaryTree(root->left);
         diameterOfBinaryTree(root->right);
         return maxdia;
-        
     }
 };
