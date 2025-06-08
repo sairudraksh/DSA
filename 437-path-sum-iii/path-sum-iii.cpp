@@ -1,19 +1,21 @@
 class Solution {
 public:
-    int path(TreeNode* root,long long currsum,int target,int &couunt){
-        if(root==NULL) return 0;
-        currsum=currsum+root->val;
-        if(currsum==target) couunt++;
-        path(root->left,currsum,target,couunt);
-        path(root->right,currsum,target,couunt);
-        return couunt;
+    void find(TreeNode* root,long long &count,long long sum,int targetsum){
+        if(root==NULL) return;
+        sum=sum+root->val;
+        if(sum==targetsum){
+            count++;
+        }
+        find(root->left,count,sum,targetsum);
+        find(root->right,count,sum,targetsum);
     }
     int pathSum(TreeNode* root, int targetSum) {
         if(root==NULL) return 0;
-        long long currsum=0;
-        int couunt=0;
-        int count=path(root,currsum,targetSum,couunt);
-        count=count+(pathSum(root->left,targetSum)+pathSum(root->right,targetSum));
+        long long count=0;
+        long long sum=0;
+        find(root,count,sum,targetSum);
+        count=count+pathSum(root->left,targetSum);
+        count=count+pathSum(root->right,targetSum);
         return count;
     }
 };
