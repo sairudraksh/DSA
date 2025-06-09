@@ -1,18 +1,19 @@
 class Solution {
 public:
-    bool uniqueOccurrences(vector<int>& nums) {
-        unordered_map<int,int>m;
-        unordered_set<int>st;
-        int n=nums.size();
+    bool uniqueOccurrences(vector<int>& arr) {
+        unordered_map<int,int>map;
+        int n=arr.size();
         for(int i=0;i<n;i++){
-            m[nums[i]]++;
+            map[arr[i]]++;
         }
-        for(auto ele :m){
-            st.insert(ele.second);
+        for(auto x:map){
+            int key=x.first;
+            int value=x.second;
+            for(auto x1: map){
+                if(x1.first==key) continue;
+                else if(x1.second==value) return false;
+            }
         }
-        if(m.size()!=st.size()){
-            return false;
-        }
-        else return true;
+        return true;
     }
 };
