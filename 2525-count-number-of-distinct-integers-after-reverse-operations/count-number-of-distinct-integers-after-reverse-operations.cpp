@@ -1,22 +1,24 @@
 class Solution {
 public:
-    int reverse(int n){
-        int k=0;
+    int find(int n){
+        int sum=0;
         while(n>0){
-            k=k*10;
-            k=k+(n%10);
+            int nums=n%10;
+            sum=sum*10+nums;
             n=n/10;
         }
-        return k;
+        return sum;
     }
     int countDistinctIntegers(vector<int>& nums) {
+        unordered_set<int>s;
         int n=nums.size();
-        unordered_set<int>st;
         for(int i=0;i<n;i++){
-            int rev=reverse(nums[i]);
-            st.insert(nums[i]);
-            st.insert(rev);
+            s.insert(nums[i]);
         }
-        return st.size();
+        for(int i=0;i<n;i++){
+            int ans=find(nums[i]);
+            s.insert(ans);
+        }
+        return s.size();
     }
 };
