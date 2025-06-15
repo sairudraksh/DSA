@@ -6,7 +6,7 @@ public:
         if(dp[x]!=-2) return dp[x];
         int result=INT_MAX;
         for(int i=0;i<coins.size();i++){
-            if(x-coins[i]<0) continue;
+            if(coins[i]>x) continue;
             result=min(result,f(x-coins[i],coins));
         }
         if(result==INT_MAX) return dp[x]=INT_MAX;
