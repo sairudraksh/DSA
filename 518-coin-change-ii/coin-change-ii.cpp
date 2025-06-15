@@ -8,7 +8,7 @@ public:
         int sum=0;
         for(int i=idx;i<coins.size();i++){
             if(amount-coins[i]<0) continue;
-            sum=sum+(find(coins,amount-coins[i],i));
+            sum=sum+(find(coins,amount-coins[i],i));// 1 with 2 will be counted so why count 2 with 1 backword again so directly start from  currect index as it starts counting from current index ans also we can use current index multiple times but not previous is permutation would have given then older solutions would have been right but in combinationa repetition is not allower 1,2  and 2,1 is same and counted as 1 
         }
         return dp[idx][amount]=sum;
     }
