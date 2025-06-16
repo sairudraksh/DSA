@@ -15,7 +15,8 @@ public:
     }
     int numRollsToTarget(int n, int k, int target) {
         dp.clear();
-        dp.resize(35,vector<int>(1005,-1));
-        return find(n,k,target);
+        dp.resize(35, vector<int>(1001,-1));
+        int a=find(n,k,target);
+        return a;
     }
 };
