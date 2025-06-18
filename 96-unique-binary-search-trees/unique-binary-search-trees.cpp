@@ -1,18 +1,15 @@
 class Solution {
 public:
-    vector<int>dp;
     int find(int n){
-        if(n==1 || n==0) return dp[n]=1;
-        if(n==2) return dp[n]=2;
-        if(dp[n]!=-1) return dp[n];
+        if(n==0 || n==1) return 1;
+        if(n==2) return 2;
         int sum=0;
-        for(int k=1;k<=n;k++){
-            sum=sum+find(k-1)*find(n-k);
+        for(int i=1;i<=n;i++){
+            sum=sum+find(i-1)*find(n-i);
         }
-        return dp[n]=sum;
+        return sum;
     }
     int numTrees(int n) {
-        dp.resize(100,-1);
         return find(n);
     }
 };
