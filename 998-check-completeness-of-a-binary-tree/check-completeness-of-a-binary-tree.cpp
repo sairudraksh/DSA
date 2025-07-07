@@ -1,10 +1,11 @@
 class Solution {
 public:
     void find(TreeNode* root,int curr,int target,vector<int>&v){
-        if(root==NULL){
+        if(root==NULL && curr==target){
             v.push_back(INT_MIN);
             return;
         }
+        else if(root==NULL) return;
         if(curr==target){
             v.push_back(root->val);
             return;
