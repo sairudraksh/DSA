@@ -1,43 +1,43 @@
 class Solution {
 public:
-    vector<vector<int>>count;
-    int maxcount=0;
+    vector<vector<int>>ans;
     vector<vector<vector<int>>>dp;
-    void ans(int i,int n,int m,int &ansm,int &ansn,int &countt){
-        if(i>=count.size()) return;
-        if (n>ansn || m>ansm) return;
-        if (dp[i][n][m] != -1 && dp[i][n][m] >= countt) return;
-        dp[i][n][m] = countt;
-        m+=count[i][0];
-        n+=count[i][1];
-        countt++;
-        if(m<=ansm && n<=ansn){
-            maxcount=max(maxcount,countt);
+    int maxcount=0;
+    void find(int i,int ansm,int ansn,int &m,int &n,int &count){
+        if(i>=ans.size()) return;
+        if (dp[i][ansn][ansm]!= -1 && dp[i][ansn][ansm]>=count) return;
+        dp[i][ansn][ansm] = count;
+        if(ansm>m || ansn>n){
+            return;
         }
-        if (m<=ansm && n<=ansn){
-            ans(i+1,n,m,ansm,ansn,countt);
+        ansm+=ans[i][0];
+        ansn+=ans[i][1];
+        count+=1;
+        if(ansm<=m && ansn<=n){
+            maxcount=max(count,maxcount);
+            find(i+1,ansm,ansn,m,n,count);
         }
-        m-=count[i][0];
-        n-=count[i][1];
-        countt--;
-        ans(i+1,n,m,ansm,ansn,countt);
+        count-=1;
+        ansm-=ans[i][0];
+        ansn-=ans[i][1];
+        find(i+1,ansm,ansn,m,n,count);
     }
-    void find(string strs, int &a, int &b){
-        for(int i=0;i<strs.size();i++){
-            if(strs[i]=='0') a++;
+    void summ(string str){
+        int a=0;// 0 count;
+        int b=0;// 1 count;
+        for(int i=0;i<str.length();i++){
+            if(str[i]=='0') a++;
             else b++;
         }
+        ans.push_back({a,b});
     }
     int findMaxForm(vector<string>& strs, int m, int n) {
+        dp.resize(strs.size(), vector<vector<int>>(n + 1,vector<int>(m + 1, -1)));
         for(int i=0;i<strs.size();i++){
-            int a=0;
-            int b=0;
-            find(strs[i],a,b);
-            count.push_back({a,b});
+            summ(strs[i]);
         }
-        int p=0;
-        dp.resize(strs.size(), vector<vector<int>>(n + 1, vector<int>(m + 1, -1)));
-        ans(0,0,0,m,n,p);
+        int count=0;
+        find(0,0,0,m,n,count);
         return maxcount;
     }
 };
