@@ -1,23 +1,25 @@
 class Solution {
-public: 
-    int ans=INT_MIN;
-    void find(TreeNode* root,int max){
+public:
+    int maxans=0;
+    void find(TreeNode* root,int ans){
         if(root==NULL) return;
-        int k=0;
-        if(root->val>=max){
-            k=root->val-max;
+        if(root->val>=ans){
+            int k=root->val-ans;
+            maxans=max(k,maxans);
         }
-        else k=max-root->val;
-        if(k>ans) ans=k;
-        find(root->left,max);
-        find(root->right,max);
+        else if(root->val<ans){
+            int k=ans-root->val;
+            maxans=max(k,maxans);
+        }
+        find(root->left,ans);
+        find(root->right,ans);
     }
     int maxAncestorDiff(TreeNode* root) {
         if(root==NULL) return 0;
-        int max=root->val;
-        find(root,max);
+        find(root,root->val);
         maxAncestorDiff(root->left);
         maxAncestorDiff(root->right);
-        return ans;
+        return maxans;
+        
     }
 };
