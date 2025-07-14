@@ -14,6 +14,7 @@ public:
         bool b=find(root->right,v,curr+1,target);
         if(a==false || b==false) return false;
         else return true;
+
     }
     int levels(TreeNode* root){
         if(root==NULL) return 0;
@@ -24,10 +25,11 @@ public:
         vector<int>v;
         bool a=find(root,v,1,n);
         if(a==false) return false;
-        for(int i=0;i<v.size()-1;i++){
-            if(v[i]==NULL && v[i+1]!=NULL) return false;
+        else{
+            for(int i=0;i<v.size()-1;i++){
+                if(v[i]==NULL && v[i+1]!=NULL) return false;
+            }
         }
         return true;
-
     }
 };
