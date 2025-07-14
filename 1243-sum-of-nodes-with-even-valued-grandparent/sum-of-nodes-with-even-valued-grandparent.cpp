@@ -1,22 +1,29 @@
 class Solution {
 public:
-    void find(TreeNode* root,int &sum){
+    void find(TreeNode* root,int &ans){
         if(root==NULL) return;
-        if(root->val%2==0 && root->left!=NULL && root->left->left!=NULL){
-            sum=sum+root->left->left->val;
-        }
-        if(root->val%2==0 && root->left!=NULL && root->left->right!=NULL){
-            sum=sum+root->left->right->val;
-        }
+        if(root->left==NULL && root->right==NULL) return;
+        if(root->val%2==0){
+            if(root->left!=NULL){
+                if(root->left->left!=NULL){
+                    ans+=root->left->left->val;
+                }
+                if(root->left->right!=NULL){
+                    ans+=root->left->right->val;
+                }
+            }
 
-        if(root->val%2==0 && root->right!=NULL && root->right->left!=NULL){
-            sum=sum+root->right->left->val;
+            if(root->right!=NULL){
+                if(root->right->left!=NULL){
+                    ans+=root->right->left->val;
+                }
+                if(root->right->right!=NULL){
+                    ans+=root->right->right->val;
+                }
+            }
         }
-        if(root->val%2==0 && root->right!=NULL && root->right->right!=NULL){
-            sum=sum+root->right->right->val;
-        }
-        find(root->left,sum);
-        find(root->right,sum);
+        find(root->left,ans);
+        find(root->right,ans);
     }
     int sumEvenGrandparent(TreeNode* root) {
         int sum=0;
