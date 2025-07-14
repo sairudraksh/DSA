@@ -1,30 +1,30 @@
 class Solution {
 public:
-    void find(TreeNode* root,int curr,int target,int &sum){
+    void find(TreeNode* root,int &ans,int curr,int &target){
         if(root==NULL) return;
         if(curr==target){
-            sum=sum+root->val;
+            ans+=root->val;
             return;
         }
-        find(root->left,curr+1,target,sum);
-        find(root->right,curr+1,target,sum);
+        find(root->left,ans,curr+1,target);
+        find(root->right,ans,curr+1,target);
     }
     int levels(TreeNode* root){
         if(root==NULL) return 0;
         return 1+max(levels(root->left),levels(root->right));
     }
     int maxLevelSum(TreeNode* root) {
-        int maxsum=INT_MIN;
-        int ans=1;
         int n=levels(root);
+        int maxans=INT_MIN;
+        int ansidx=0;
         for(int i=1;i<=n;i++){
-            int sum=0;
-            find(root,1,i,sum);
-            if(sum>maxsum){
-                maxsum=sum;
-                ans=i;
+            int ans=0;
+            find(root,ans,1,i);
+            if(ans>maxans){
+                maxans=ans;
+                ansidx=i;
             }
         }
-        return ans;
+        return ansidx;
     }
 };
