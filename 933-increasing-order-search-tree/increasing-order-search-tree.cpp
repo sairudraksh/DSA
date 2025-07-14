@@ -2,22 +2,20 @@ class Solution {
 public:
     void find(TreeNode* root,vector<int>&v){
         if(root==NULL) return;
-        v.push_back(root->val);
         find(root->left,v);
+        v.push_back(root->val);
         find(root->right,v);
     }
-    TreeNode* increasingBST(TreeNode* root) {
+    TreeNode* increasingBST(TreeNode* roott) {
         vector<int>v;
-        find(root,v);
-        sort(v.begin(),v.end());
-        int n=v.size();
-        TreeNode* newroot=new TreeNode(v[0]);
-        root=newroot;
-        for(int i=1;i<n;i++){
-            TreeNode* newroot1=new TreeNode(v[i]);
-            newroot->right=newroot1;
-            newroot=newroot1;
+        find(roott,v);
+        TreeNode* root=new TreeNode(v[0]);
+        TreeNode* rootans=root;
+        for(int i=1;i<v.size();i++){
+            TreeNode* root1=new TreeNode(v[i]);
+            root->right=root1;
+            root=root1;
         }
-        return root;
+        return rootans;
     }
 };
