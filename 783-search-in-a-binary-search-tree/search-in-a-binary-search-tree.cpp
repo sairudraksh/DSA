@@ -1,9 +1,19 @@
 class Solution {
 public:
-    TreeNode* searchBST(TreeNode* root, int val) {
-        if(root==NULL) return NULL;
-        else if(root->val==val) return root;
-        else if(root->val>val) return searchBST(root->left,val);
-        else return searchBST(root->right,val);
+    TreeNode* temp=NULL;
+    void find(TreeNode* root,int val){
+        if(root==NULL) return;
+        if(root->val==val){
+            temp=root;
+            return;
+        }
+        if(val>root->val){
+            find(root->right,val);
+        }
+        else find(root->left,val);
+    }
+    TreeNode* searchBST(TreeNode* root, int val){
+        find(root,val);
+        return temp;
     }
 };
