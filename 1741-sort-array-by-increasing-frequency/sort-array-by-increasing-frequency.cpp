@@ -3,25 +3,21 @@ public:
     typedef pair<int,int>pi;
     vector<int> frequencySort(vector<int>& nums) {
         unordered_map<int,int>map;
-        int n=nums.size();
-        for(int i=0;i<n;i++){
+        for(int i=0;i<nums.size();i++){
             map[nums[i]]++;
         }
         priority_queue<pi,vector<pi>,greater<pi>>pq;
-        for(auto x:map){
-            int ele=x.first;
-            int freq=x.second;
-            pair<int,int>p={freq,-ele};
-            pq.push(p);
+        for(auto &x:map){
+            pq.push({x.second,-x.first});
         }
-        vector<int>ans;
+        vector<int>v;
         while(pq.size()>0){
-            int len=pq.top().first;
-            for(int i=0;i<len;i++){
-                ans.push_back(-pq.top().second);
+            auto x=pq.top();
+            for(int i=0;i<x.first;i++){
+                v.push_back(-x.second);
             }
             pq.pop();
         }
-        return ans;
+        return v;
     }
 };
