@@ -1,28 +1,19 @@
 class Solution {
 public:
-    int finalans=INT_MAX;
-    void find(TreeNode* root,int val,int &ans){
+    void find(TreeNode* root,vector<int>&v){
         if(root==NULL) return;
-        if(root->val>val){
-            int min=root->val-val;
-            if(min<ans) ans=min;
-        }
-        if(root->val<val){
-            int min=val-root->val;
-            if(min<ans) ans=min;
-        }
-        find(root->left,val,ans);
-        find(root->right,val,ans);
+        find(root->left,v);
+        v.push_back(root->val);
+        find(root->right,v);
     }
     int minDiffInBST(TreeNode* root) {
-        if(root==NULL) return 0;
-        int ans=INT_MAX;
-        find(root,root->val,ans);
-        if(ans<finalans){
-            finalans=ans;
+        vector<int>v;
+        find(root,v);
+        int max=INT_MAX;
+        for(int i=0;i<v.size()-1;i++){
+            int ans=abs(v[i+1]-v[i]);
+            if(ans<max) max=ans;
         }
-        minDiffInBST(root->left);
-        minDiffInBST(root->right);
-        return finalans;
-    }
+        return max;
+    } 
 };
