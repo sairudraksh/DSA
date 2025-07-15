@@ -1,17 +1,17 @@
 class Solution {
 public:
-    TreeNode* insertIntoBST(TreeNode* root, int val) {
+    TreeNode* insertIntoBST(TreeNode* root, int &val) {
         if(root==NULL){
-            TreeNode* temp=new TreeNode(val);
+            TreeNode*temp=new TreeNode(val);
             return temp;
         }
-        if(root->val>val){
+        else if(root->val>val){
             if(root->left==NULL){
                 TreeNode* temp=new TreeNode(val);
                 root->left=temp;
-                return root ;
+                return root;
             }
-            insertIntoBST(root->left,val); 
+            else insertIntoBST(root->left,val);
         }
         else{
             if(root->right==NULL){
