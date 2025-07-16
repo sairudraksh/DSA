@@ -10,8 +10,7 @@ public:
         return dp[i][flagg]=max(arr[i]+find(arr,i+1,false),find(arr,i+1,true));
     }
     int maxProfit(vector<int>& prices) {
-        int n=prices.size();
-        dp.resize(n+1, vector<int>(2, -1));
+        dp.resize(prices.size()+1,vector<int>(2,-1));
         return find(prices,0,false);
     }
 };
