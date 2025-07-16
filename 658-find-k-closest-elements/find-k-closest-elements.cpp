@@ -1,20 +1,22 @@
 class Solution {
 public:
-    typedef pair<int,int>pi; 
     vector<int> findClosestElements(vector<int>& arr, int k, int x) {
-        priority_queue<pi>pq;
-        for(int i=0;i<arr.size();i++){
-            int ele=arr[i];
-            int diff=abs(x-ele);
-            pq.push({diff,ele});
-            if(pq.size()>k) pq.pop();
+        priority_queue<pair<int,int>>pq;
+        int n=arr.size();
+        for(int i=0;i<n;i++){
+            int diff=abs(x-arr[i]);
+            pq.push({diff,arr[i]});
         }
-        vector<int>ans;
-        while(pq.size()>0){
-            ans.push_back(pq.top().second);
+        while(pq.size()>k){
             pq.pop();
         }
-        sort(ans.begin(),ans.end());
-        return ans;
+        vector<int>v;
+        while(pq.size()!=0){
+            auto x=pq.top();
+            v.push_back(x.second);
+            pq.pop();
+        }
+        sort(v.begin(),v.end());
+        return v;
     }
 };
