@@ -1,45 +1,48 @@
 class Solution {
 public:
     vector<vector<int>>dp;
-    bool find(int i,int j,int k,string &s1,string &s2,string &s3,int &n1,int &n2,int &n){
-        if(k==n && i==n1 && j==n2) return true;
-        else if(i==n1 && j==n2 && k!=n) return false;
-        else if(i==n1 && j==n2) return false;
-        else if(i==n1){
-            while(j<=n2-1 && k<=n-1){
+    bool find(string &s1,string &s2,string &s3,int i,int j,int k,int &n1,int &n2,int &n3){
+        if(i==n1 && j==n2 && k==n3) return true;
+        else if(i==n1 && j==n2 && k!=n3) return false;
+        if(i==n1 && j==n2) return false;
+        if(dp[i][j]!=-1) return dp[i][j];
+        else if(i==n1 && j!=n2){
+            while(k<n3 && j<n2){
                 if(s2[j]!=s3[k]) return false;
-                k++;
                 j++;
+                k++;
             }
-            if(j==n2 && k==n) return true;
+            if(j==n2 && k==n3) return dp[i][j]=true;
             else return false;
         }
-        else if(j==n2){
-            while(i<=n1-1 && k<=n-1){
+
+        else if(i!=n1 && j==n2){
+            while(k<n3 && i<n1){
                 if(s1[i]!=s3[k]) return false;
-                k++;
                 i++;
+                k++;
             }
-            if(i==n1 && k==n) return true;
+            if(i==n1 && k==n3) return dp[i][j]=true;
             else return false;
         }
         if(dp[i][j]!=-1) return dp[i][j];
-        else if(s1[i]==s3[k] && s2[j]==s3[k]){
-            return dp[i][j]=find(i+1,j,k+1,s1,s2,s3,n1,n2,n)|find(i,j+1,k+1,s1,s2,s3,n1,n2,n);
+        if(s1[i]==s3[k] && s2[j]==s3[k]){
+            return dp[i][j]=find(s1,s2,s3,i+1,j,k+1,n1,n2,n3)|find(s1,s2,s3,i,j+1,k+1,n1,n2,n3);
         }
         else if(s1[i]==s3[k]){
-            return dp[i][j]=find(i+1,j,k+1,s1,s2,s3,n1,n2,n);
+            return dp[i][j]=find(s1,s2,s3,i+1,j,k+1,n1,n2,n3);
         }
         else if(s2[j]==s3[k]){
-            return dp[i][j]=find(i,j+1,k+1,s1,s2,s3,n1,n2,n);
+            return dp[i][j]=find(s1,s2,s3,i,j+1,k+1,n1,n2,n3);
         }
-        return dp[i][j]=false;//if none is matching;
+        return dp[i][j]=false;
     }
     bool isInterleave(string s1, string s2, string s3) {
         int n1=s1.length();
         int n2=s2.length();
         int n3=s3.length();
+        int k=0;
         dp.resize(201,vector<int>(201,-1));
-        return find(0,0,0,s1,s2,s3,n1,n2,n3);
+        return find(s1,s2,s3,0,0,k,n1,n2,n3);
     }
 };
