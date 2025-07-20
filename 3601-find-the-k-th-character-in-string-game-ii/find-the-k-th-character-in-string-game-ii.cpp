@@ -1,23 +1,21 @@
 class Solution {
 public:
-    char kthCharacter(long long k, vector<int>& operations) {
+    int find(vector<int>& operations,long long k){
         if(k==1) return 'a';
         long long len=1;
-        long long opr=-1;
-        long long newk=1;
         for(int i=0;i<operations.size();i++){
             len=len*2;
             if(len>=k){
-                opr=i;
-                newk=k-(len/2);
-                break;
+                long long newk=k-(len/2);
+                char ans=find(operations,newk);
+                if(operations[i]==0) return ans;
+                else if(operations[i]==1 && ans=='z') return 'a';
+                else return ans+1;
             }
         }
-        char ch=kthCharacter(newk,operations);
-        if(operations[opr]==0){
-            return ch;
-        }
-        else if(ch=='z') return 'a';
-        return ch+1;
+        return 0;
+    }
+    char kthCharacter(long long k, vector<int>& operations) {
+        return find(operations,k);
     }
 };
