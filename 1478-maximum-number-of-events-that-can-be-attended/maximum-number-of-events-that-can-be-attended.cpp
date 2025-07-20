@@ -3,21 +3,21 @@ public:
     int maxEvents(vector<vector<int>>& events) {
         int n=events.size();
         sort(events.begin(),events.end());
-        priority_queue<int, vector<int>, greater<int>> pq;
-        int i=0;
+        priority_queue<int,vector<int>,greater<int>> pq;
         int count=0;
-        int ans=events[0][0];
-        while(!pq.empty() || i<n){
-            while(i<n && ans==events[i][0]){
+        int i=0;
+        int day=events[0][0];
+        while(i<n || !pq.empty()){
+            while(i<n && day==events[i][0]){
                 pq.push(events[i][1]);
                 i++;
             }
             if(!pq.empty()){
-                pq.pop();
                 count++;
+                pq.pop();
             }
-            ans++;
-            while(!pq.empty() && pq.top()<ans){
+            day++;
+            while(!pq.empty() && pq.top()<day){
                 pq.pop();
             }
         }
