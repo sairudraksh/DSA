@@ -2,7 +2,9 @@ class Solution {
 public:
     map<vector<int>,int>dp;
     int find(vector<int>& price, vector<vector<int>>& special, vector<int>needs){
-        if(dp.count(needs)) return dp[needs];
+        if(dp.find(needs)!=dp.end()){
+            return dp[needs];
+        }
         bool flagg1=false;
         for(int i=0;i<needs.size();i++){
             if(needs[i]!=0){
