@@ -1,6 +1,6 @@
 class Solution {
 public:
-    typedef pair<int,pair<int,int>>pip;
+    typedef pair<int,pair<int,int>>pip;//Traverse in min of all vector and do i++ in that particular vector
     priority_queue<pip,vector<pip>,greater<pip>>pq;
     vector<int> smallestRange(vector<vector<int>>& nums) {
         int mx=INT_MIN;
