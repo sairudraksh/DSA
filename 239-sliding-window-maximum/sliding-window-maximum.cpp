@@ -10,7 +10,7 @@ public:
             while(dq.size()>0 && dq.front()<=i-k){
                 dq.pop_front();
             }
-            while(dq.size()>0 && nums[dq.back()]<nums[i]){
+            while(dq.size()>0 && nums[dq.back()]<nums[i]){// do from back do dryrun in testcase [1,3,1,2,0,5]
                 dq.pop_back();
             }
             dq.push_back(i);
