@@ -12,14 +12,13 @@ public:
             else currSum--;
             
             if(map.find(currSum)!=map.end()){
-                int diff=(i-map[currSum])+1;
+                int diff=(i-map[currSum]);
 
                 maximum=max(maximum,diff);
             }
 
             else map[currSum]=i;
         }
-        if(maximum==0) return 0;
-        return maximum-1;
+        return maximum;
     }
 };
