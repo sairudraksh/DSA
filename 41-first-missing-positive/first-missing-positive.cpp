@@ -4,13 +4,21 @@ public:
         int n=nums.size();
         int i=0;
         while(i<n){
-            if(nums[i]<=0) i++;
-            else if(nums[i]<=0 || nums[i]>n || nums[nums[i]-1]==nums[i]) i++;
-            else swap(nums[i],nums[nums[i]-1]);
+            if(nums[i]<=0 || nums[i]>n){
+                i++;
+            }
+            else if(nums[i]==i+1){
+                i++;
+            }
+            else if(nums[i]!=nums[nums[i]-1]){
+                swap(nums[i],nums[nums[i]-1]);
+            }
+            else i++;
         }
-        for(int i=0;i<n;i++){
-            if(nums[i]!=i+1) return i+1;
+
+        for(int k=0;k<n;k++){
+            if(nums[k]!=k+1) return k+1;
         }
-        return n+1;
+        return nums[n-1]+1;
     }
 };
