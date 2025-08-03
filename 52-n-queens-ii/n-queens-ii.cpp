@@ -1,6 +1,6 @@
 class Solution {
 public:
-    vector<vector<string>>ans;
+    int count=0;
     vector<vector<char>>grid;
 
     bool wecanput(int row,int col,int n){
@@ -17,15 +17,7 @@ public:
     }
     void find(int row,int n){
         if(row==n){
-            vector<string>v;
-            for(int i=0;i<n;i++){
-                string s="";
-                for(int j=0;j<n;j++){
-                    s+=grid[i][j];
-                }
-                v.push_back(s);
-            }
-            ans.push_back(v);
+            count++;
             return;
         }
         for(int j=0;j<n;j++){
@@ -38,9 +30,8 @@ public:
     }
     int totalNQueens(int n) {
         grid.clear();
-        ans.clear();
         grid.resize(n,vector<char>(n,'.'));
         find(0,n);
-        return ans.size();
+        return count;
     }
 };
