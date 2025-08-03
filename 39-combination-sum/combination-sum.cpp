@@ -1,22 +1,23 @@
 class Solution {
 public:
-    void combinations(vector<vector<int>>&ans,vector<int>v,vector<int>candidates,int n,int target,int idx){
+    vector<vector<int>>ans;
+    void find(vector<int>&nums,int target,int idx,vector<int>&v){
         if(target==0){
             ans.push_back(v);
             return;
         }
         if(target<0) return;
-        for(int i=idx;i<n;i++){
-            v.push_back(candidates[i]);
-            combinations(ans,v,candidates,n,target-candidates[i],i);
+        if(idx>=nums.size()) return;
+        for(int i=idx;i<nums.size();i++){
+            v.push_back(nums[i]);
+            find(nums,target-nums[i],i,v);
             v.pop_back();
         }
     }
-    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        int n=candidates.size();
+    vector<vector<int>> combinationSum(vector<int>& nums, int target) {
+        int n=nums.size();
         vector<int>v;
-        vector<vector<int>>ans;
-        combinations(ans,v,candidates,n,target,0);
+        find(nums,target,0,v);
         return ans;
     }
 };
