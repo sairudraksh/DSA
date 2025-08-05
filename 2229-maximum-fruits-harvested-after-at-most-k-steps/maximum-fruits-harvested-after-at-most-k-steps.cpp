@@ -24,12 +24,12 @@ public:
                 maximum=max(maximum,ans);
             }
 
-            i=Pos+d;
-            j=Pos-(k-(2*d));
+            i=Pos-(k-(2*d));
+            j=Pos+d;
 
-            left=lower_bound(indices.begin(),indices.end(),j)-indices.begin();
+            left=lower_bound(indices.begin(),indices.end(),i)-indices.begin();
 
-            right=upper_bound(indices.begin(),indices.end(),i)-indices.begin()-1;
+            right=upper_bound(indices.begin(),indices.end(),j)-indices.begin()-1;
             
             if(left<=right){
                 int ans=prefixSum[right]-(left>0?prefixSum[left-1]:0);
