@@ -1,45 +1,43 @@
 class Solution {
 public:
     long long minCost(vector<int>& basket1, vector<int>& basket2) {
-        unordered_map<int,int>mp;
+        int n=basket1.size();
+        int minEle=basket1[0];
 
-        int minEl=INT_MAX;
+        unordered_map<int,int>map;
 
-        for(int &x: basket1){
-            mp[x]++;
-            minEl=min(minEl,x);
+        for(int i=0;i<n;i++){
+            map[basket1[i]]++;
+            minEle=min(minEle,basket1[i]);
         }
 
-        for(int &x: basket2){
-            mp[x]--;
-            minEl=min(minEl,x);
+        for(int i=0;i<n;i++){
+            map[basket2[i]]--;
+            minEle=min(minEle,basket2[i]);
         }
 
-        vector<int>finalList;
+        vector<int>v;
 
-        for(auto &it:mp){
-            int cost=it.first;
-            int count=it.second;
+        for(auto &x:map){
+            if(x.second==0) continue;
 
-            if(count==0){
-                continue;
-            }
+            if(x.second%2!=0) return -1;
 
-            if(count%2!=0) return -1;
-
-            for(int c=1;c<=abs(count)/2;c++){
-                finalList.push_back(cost);
+            else{
+                for(int i=0;i<abs(x.second)/2;i++){
+                    v.push_back(x.first);
+                }
             }
         }
 
-        sort(finalList.begin(),finalList.end());
+        sort(v.begin(),v.end());
 
-        long long result=0;
+        long long sum=0;
 
-        for(int i=0;i<finalList.size()/2;i++){
-            result+=min(finalList[i],minEl*2);
+        for(int i=0;i<v.size()/2;i++){
+            sum+=min(v[i],minEle*2);
         }
 
-        return result;
+        return sum;
     }
 };
