@@ -1,22 +1,29 @@
-bool cmp(vector<int>&v1 ,vector<int>&v2){
-    return v1[1]>v2[1];
-}
 class Solution {
 public:
-    int maximumUnits(vector<vector<int>>& v, int trucksize) {
-        sort(v.begin(),v.end(),cmp);
-        int profit=0;
-        for(int i=0;i<v.size();i++){//row size
-            if(trucksize>=v[i][0]){
-                profit+=v[i][0]*v[i][1];
-                trucksize-=v[i][0];
+    static bool cmp(vector<int>&a,vector<int>&b){
+        return a[1]>b[1];
+    }
+    int maximumUnits(vector<vector<int>>& nums, int truckSize) {
+        sort(nums.begin(),nums.end(),cmp);
+        int n=nums.size();
+
+        int sum=0;
+
+        for(int i=0;i<nums.size();i++){
+            if(truckSize==0) break;
+
+            if(nums[i][0]<truckSize){
+                sum+=nums[i][0]*nums[i][1];
+                truckSize-=nums[i][0];
             }
             else{
-                profit+=trucksize*v[i][1];
-                trucksize=0;
+                int ans=truckSize*nums[i][1];
+
+                sum+=ans;
+                break;
             }
-            if(trucksize==0) break;
+
         }
-        return profit;
+        return sum;
     }
 };
