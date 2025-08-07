@@ -1,34 +1,43 @@
 class Solution {
 public:
-    string repeatLimitedString(string s, int repeatLimit) {
-        unordered_map<char,int>mp;
-        for(int i=0;i<s.length();i++){
-            mp[s[i]]++;
+    string repeatLimitedString(string str, int repeatLimit) {
+        unordered_map<char,int>map;
+        int n=str.length();
+        for(int i=0;i<n;i++){
+            map[str[i]]++;
         }
-        priority_queue<pair<char,int>>pq;
-        for(auto x:mp){
+
+        priority_queue<pair<char,int>>pq;//pair
+
+        for(auto &x:map){
             pq.push(x);
         }
-        string str="";
+        string s="";
         while(pq.size()>0){
-            pair<char,int>largest=pq.top();
+            auto largest=pq.top();
             pq.pop();
-            int len=min(repeatLimit,largest.second);
+            int len=min(largest.second,repeatLimit);
+
             for(int i=0;i<len;i++){
-                str+=largest.first;
+                s+=largest.first;
             }
+
+
             if(largest.second-len>0){
-                if(pq.size()>0){
-                    pair<char,int>secondlargest=pq.top();
+                if(!pq.empty()){
+                    auto secondLargest=pq.top();
                     pq.pop();
-                    str+=secondlargest.first;
-                    if(secondlargest.second-1>0){
-                        pq.push({secondlargest.first,secondlargest.second-1});
+                    s+=secondLargest.first;
+
+                    if(secondLargest.second-1>0){
+                        pq.push({secondLargest.first,secondLargest.second-1});
                     }
-                    pq.push({largest.first,largest.second-len});
                 }
+                else return s;
+
+                pq.push({largest.first,largest.second-len});
             }
         }
-        return str;
+        return s;
     }
 };
