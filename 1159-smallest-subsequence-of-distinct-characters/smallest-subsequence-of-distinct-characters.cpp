@@ -7,11 +7,11 @@ public:
         vector<bool>taken(26,false);
         vector<int>lastIndex(26);
 
-        for(int i=0;i<n;i++){
+        for(int i=0;i<n;i++){//TC=O(n)
             lastIndex[s[i]-'a']=i;
         }
 
-        for(int i=0;i<n;i++){
+        for(int i=0;i<n;i++){//TC=O(n)
             int idx=s[i]-'a';
 
             if(taken[idx]==true) continue;
@@ -23,6 +23,6 @@ public:
             result.push_back(s[i]);
             taken[idx]=true;
         }
-        return result;
+        return result;//total TC=O(n);
     }
 };
