@@ -31,13 +31,7 @@ public:
                 j--;
             }
             else return maxtoken;
-            while(i<=j && power>=nums[i]){
-                token++;
-                power-=nums[i];
-                i++;
-            }
-
-            maxtoken=max(maxtoken,token);
+            
         }
         return maxtoken;
     }
