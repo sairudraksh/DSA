@@ -2,40 +2,39 @@ class Solution {
 public:
     string predictPartyVictory(string s) {
         int n=s.length();
-        queue<int>q;
+
+        queue<int>pq;
         queue<int>r;
         queue<int>d;
+
         for(int i=0;i<n;i++){
-            q.push(i);
+            pq.push(i);
             if(s[i]=='R') r.push(i);
             else d.push(i);
         }
-        while(q.size()>1){
-            if(s[q.front()]=='X') q.pop();
-            else if(s[q.front()]=='R'){
+
+        while(pq.size()>1){
+            if(s[pq.front()]=='X') pq.pop();
+            else if(s[pq.front()]=='R'){
                 if(d.size()==0) return "Radiant";
-                else{
-                    s[d.front()]='X';
-                    d.pop();
-                    q.push(q.front());
-                    q.pop();
-                    r.push(r.front());
-                    r.pop();
-                }
+                s[d.front()]='X';
+                d.pop();
+                pq.push(pq.front());
+                pq.pop();
+                r.push(r.front());
+                r.pop();
             }
             else{
                 if(r.size()==0) return "Dire";
-                else{
-                    s[r.front()]='X';
-                    r.pop();
-                    q.push(q.front());
-                    q.pop();
-                    d.push(d.front());
-                    d.pop();
-                }
+                s[r.front()]='X';
+                r.pop();
+                pq.push(pq.front());
+                pq.pop();
+                d.push(d.front());
+                d.pop();
             }
         }
-        if(s[q.front()]=='R') return "Radiant";
+        if(s[pq.front()]=='R') return "Radiant";
         else return "Dire";
     }
 };
