@@ -41,7 +41,7 @@ public:
     }
     bool canCross(vector<int>& stones) {
         if(stones.size()==1) return true;
-        dp.resize(stones.size()+1,vector<int>(10001,-1));
+        dp.resize(stones.size()+1,vector<int>(stones.size()+1,-1));
         return find(stones,0,0);
     }
 };
