@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int find(vector<int>&nums,int &k,int mid){
+    int find(vector<int>&nums,int k,int mid){
         int continous=0;
         int count=0;
 
