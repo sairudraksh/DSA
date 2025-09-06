@@ -1,46 +1,40 @@
 class Solution {
 public:
-    void sortdiadonally(int i,int j,vector<vector<int>>& grid,bool asc){
-        int n=grid.size();
-        int r=i;
-        int c=j;
-
+    int n;
+    void MakeMatrix(vector<vector<int>>& grid,int r,int c,bool nonIncreasing){
         vector<int>v;
-        while(i<n && j<n){
-            v.push_back(grid[i][j]);
-            i++;
-            j++;
-        }
-        i=r;
-        j=c;
-        if(asc){
-            sort(v.begin(),v.end());
-            for(int k=0;k<v.size();k++){
-                grid[i][j]=v[k];
-                i++;
-                j++;
-            }
+        int i=r;
+        int j=c;
+        while(r<n && c<n){
+            v.push_back(grid[r][c]);
+            r++;
+            c++;
         }
 
-        if(!asc){
+        if(nonIncreasing){
             sort(v.begin(),v.end());
             reverse(v.begin(),v.end());
-            for(int k=0;k<v.size();k++){
-                grid[i][j]=v[k];
-                i++;
-                j++;
-            }
+        }
+        else{
+            sort(v.begin(),v.end());
+        }
+        int k=0;
+        while(i<n && j<n){
+            grid[i][j]=v[k];
+            i++;
+            j++;
+            k++;
         }
     }
     vector<vector<int>> sortMatrix(vector<vector<int>>& grid) {
-        int n=grid.size();
+        n=grid.size();
 
-        for(int i=0;i<n;i++){
-            sortdiadonally(i,0,grid,false);
+        for(int r=0;r<n;r++){
+            MakeMatrix(grid,r,0,true);
         }
 
-        for(int i=1;i<n;i++){
-            sortdiadonally(0,i,grid,true);
+        for(int c=1;c<n;c++){
+            MakeMatrix(grid,0,c,false);
         }
 
         return grid;
