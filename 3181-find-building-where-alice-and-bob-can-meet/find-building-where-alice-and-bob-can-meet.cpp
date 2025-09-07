@@ -16,15 +16,15 @@ public:
     }
 
     int find(int i,int l,int r,int lo,int hi,vector<int>&arr){
-        if(r<lo || hi<l) return -1;
+        if(r<lo || hi<l) return INT_MIN;
         else if(lo>=l && r>=hi) return st[i];
 
         int mid=lo+(hi-lo)/2;
 
         int left=find(2*i+1,l,r,lo,mid,arr);
         int right=find(2*i+2,l,r,mid+1,hi,arr);
-        if(left==-1) return right;
-        if(right==-1) return left;
+        if(left==INT_MIN) return right;
+        if(right==INT_MIN) return left;
         if(arr[left]>arr[right]){
             return left;
         }
@@ -58,7 +58,7 @@ public:
                 int mid=l+(r-l)/2;
 
                 int maximum=find(0,l,mid,0,m-1,arr);
-                if(maximum!=-1 && arr[maximum]>max(arr[max_idx],arr[min_idx])){
+                if(maximum!=INT_MIN && arr[maximum]>max(arr[max_idx],arr[min_idx])){
                     r=mid-1;
                     result=maximum;
                 }
