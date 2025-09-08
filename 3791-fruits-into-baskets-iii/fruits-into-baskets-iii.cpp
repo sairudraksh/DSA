@@ -26,7 +26,7 @@ public:
 
         int leftMax=findRange(2*i+1,lo,mid,l,r,arr);
         int rightMax=findRange(2*i+2,mid+1,hi,l,r,arr);
-        if(leftMax==-1) return rightMax;
+        if(leftMax==-1) return rightMax;// -1 as when we updated tree we have kept used value as -1 and some time we might reach at that place (for ex=0,0) again so it will return index=-1 and 2nd if its not valid then also it will return -1; so for both we kept -1 that if one is returning -1 so it might be out of range or it might be used and we will not use both 
         if(rightMax==-1) return leftMax;
 
         if(arr[leftMax]>=arr[rightMax]){
