@@ -11,7 +11,7 @@ public:
         int p2=2;
         if(prev!=-1){
             if(nums[prev]%2==0) p1=0;
-            else p1=1;
+            else p1=1;// we did memoisation like this as memo0isation was only depending on whether prev and Sprev is even or odd so for odd keep 1 and for even keep 0 and for -1 keep 2 we dont have to keep whole value in dp array
         }
         if(Sprev!=-1){
             if(nums[Sprev]%2==0) p2=0;
