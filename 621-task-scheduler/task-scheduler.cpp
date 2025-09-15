@@ -1,39 +1,32 @@
 class Solution {
 public:
-    int leastInterval(vector<char>& nums, int p) {
-        int n=nums.size();
+    int leastInterval(vector<char>& nums, int n) {
         unordered_map<char,int>map;
-
-        for(int i=0;i<n;i++){
+        for(int i=0;i<nums.size();i++){
             map[nums[i]]++;
         }
-
-        int time=0;
-
         priority_queue<int>pq;
-
         for(auto &x:map){
             pq.push(x.second);
         }
-
+        int time=0;
         while(pq.size()>0){
             vector<int>temp;
-
-            for(int i=1;i<=p+1;i++){
+            for(int i=1;i<=n+1;i++){
                 if(!pq.empty()){
                     temp.push_back(pq.top()-1);
                     pq.pop();
                 }
             }
             for(int i=0;i<temp.size();i++){
-                if(temp[i]>0) pq.push(temp[i]);
+                if(temp[i]!=0) pq.push(temp[i]);
             }
 
             if(pq.size()<=0){
                 time+=temp.size();
             }
-            else{
-                time+=p+1;
+            else{// n bercause taht size will be empty
+                time+=n+1;
             }
         }
         return time;
