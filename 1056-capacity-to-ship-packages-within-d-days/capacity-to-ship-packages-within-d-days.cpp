@@ -1,44 +1,42 @@
 class Solution {
 public:
-    bool check(int mid,vector<int>weights,int days){
-        int m=mid;
+    bool find(vector<int>& nums,int weight,int days){
+        int w=weight;
         int count=1;
-        int n=weights.size();
-        for(int i=0;i<n;i++){
-            if(m>=weights[i]){
-                m=m-weights[i];
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]<=weight){
+                weight=weight-nums[i];
             }
             else{
                 count++;
-                m=mid;
-                m=m-weights[i];
+                weight=w;
+                weight=weight-nums[i];
             }
         }
-        if(count>days) return false;
-        else return true;
-
+        if(count<=days) return true;
+        else return false;
     }
-    int shipWithinDays(vector<int>& weights, int days) {
-        int n=weights.size();
-        int max=INT_MIN;
+    int shipWithinDays(vector<int>& nums, int days) {
         int sum=0;
-        for(int i=0;i<n;i++){
-            if(weights[i]>max) max=weights[i];
-            sum=sum+weights[i];
+        int maxele=0;
+        for(int i=0;i<nums.size();i++){
+            sum+=nums[i];
+            maxele=max(maxele,nums[i]);
         }
-        int lo=max;
+
+        int lo=maxele;
         int hi=sum;
-        int mincapacity=0;
+        int ans=sum;
         while(lo<=hi){
             int mid=lo+(hi-lo)/2;
-            if(check(mid,weights,days)){
-                mincapacity=mid;
+            if(find(nums,mid,days)){
                 hi=mid-1;
+                ans=mid;
             }
             else{
                 lo=mid+1;
             }
         }
-        return mincapacity;
+        return ans;
     }
 };
