@@ -1,41 +1,45 @@
 class Solution {
 public:
-    int find(vector<int>&nums,int k,int mid){
-        int continous=0;
-        int count=0;
-
-        for(int i=0;i<nums.size();i++){
-            if(nums[i]<=mid){
-                continous++;
-
+    long long find(vector<int>&nums,long long k,long long day){
+        long long count=0;
+        long long n=nums.size();
+        long long bloom=0;
+        for(int i=0;i<n;i++){
+            if(nums[i]<=day){
+                bloom++;
             }
-            if(continous==k){
+            else{
+                bloom=0;
+            }
+            if(bloom==k){
                 count++;
-                continous=0;
-            }
-            if(nums[i]>mid){
-                continous=0;
+                bloom=0;
             }
         }
         return count;
     }
-    int minDays(vector<int>&nums, int m, int k) {
-        int start=0;
-        int end=-1;
+    int minDays(vector<int>& nums, int m, int together) {
+        long long n=nums.size();
+        long long maxEle=0;
+        long long mini=INT_MAX;
         for(int i=0;i<nums.size();i++){
-            end=max(end,nums[i]);
+            if(nums[i]>maxEle) maxEle=nums[i];
+            if(nums[i]<mini) mini=nums[i];
         }
-        int ans=-1;
-        while(start<=end){
-            int mid=start+(end-start)/2;
 
-            int a=find(nums,k,mid);
+        long long lo=mini;
+        long long hi=maxEle;
+        long long ans=-1;
+        while(lo<=hi){
+            long long mid=lo+(hi-lo)/2;
 
-            if(a>=m){
+            long long x=find(nums,(long long)together,(long long)mid);
+
+            if(x>=m){
                 ans=mid;
-                end=mid-1;
+                hi=mid-1;
             }
-            else start=mid+1;
+            else lo=mid+1;
         }
         return ans;
     }
