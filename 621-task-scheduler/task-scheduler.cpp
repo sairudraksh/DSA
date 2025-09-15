@@ -1,7 +1,7 @@
 class Solution {
 public:
     int leastInterval(vector<char>& nums, int n) {
-        unordered_map<char,int>map;
+        unordered_map<char,int>map;// main thing here is that first do taskes that have more frequency as at end they moght creaate problem
         for(int i=0;i<nums.size();i++){
             map[nums[i]]++;
         }
