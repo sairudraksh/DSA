@@ -17,7 +17,7 @@ public:
                     st.push((a*b)/gcd);
                 }
                 else{
-                    st.push(b);
+                    st.push(b);// push b first because this was the order of pushing ,like in thus way b will be bellow and a above
                     st.push(a);
                     break;
                 }
