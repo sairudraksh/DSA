@@ -13,8 +13,7 @@ public:
     int integerBreak(int n) {
         dp.resize(n+1,-1);
         int a=find(n);
-        if(a==4) return a;
-        if(a==n) return a-1;
+        if(a<4) return a-1;
         else return a;
     }
 };
