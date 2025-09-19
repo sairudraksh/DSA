@@ -22,6 +22,7 @@ public:
                 h->next=tempB;
                 tempB=tempB->next;
                 h=h->next;
+                break;
             }
         }
         else if(tempB==NULL){
@@ -29,6 +30,7 @@ public:
                 h->next=tempA;
                 tempA=tempA->next;
                 h=h->next;
+                break;
             }
         }
         return head->next;
