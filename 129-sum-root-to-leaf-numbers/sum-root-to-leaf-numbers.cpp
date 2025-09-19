@@ -1,19 +1,19 @@
 class Solution {
 public:
-    void find(TreeNode* root,int currsum,int &totalsum){
+    int totalsum=0;
+    void find(TreeNode* root,int sum){
         if(root==NULL) return;
-        currsum=currsum*10+root->val;
+        sum=sum*10+root->val;
+
         if(root->left==NULL && root->right==NULL){
-            totalsum=totalsum+currsum;
+            totalsum+=sum;
         }
-        find(root->left,currsum,totalsum);
-        find(root->right,currsum,totalsum);
+
+        find(root->left,sum);
+        find(root->right,sum);
     }
     int sumNumbers(TreeNode* root) {
-        if(root==NULL) return 0;
-        int currsum=0;
-        int totalsum=0;
-        find(root,currsum,totalsum);
+        find(root,0);
         return totalsum;
     }
 };
