@@ -2,6 +2,7 @@ class Solution {
 public:
     bool isPossibleDivide(vector<int>& nums, int k) {
         int n=nums.size();
+        if(n%k!=0) return false;
         unordered_map<int,int>map;
         sort(nums.begin(),nums.end());
         for(int i=0;i<n;i++){
