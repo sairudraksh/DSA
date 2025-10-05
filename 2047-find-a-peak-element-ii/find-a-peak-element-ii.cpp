@@ -4,11 +4,32 @@ public:
         int n=nums.size();
         int m=nums[0].size();
 
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                if((j==m-1 || nums[i][j+1]<nums[i][j]) && (i==n-1 || nums[i+1][j]<nums[i][j]) && (j==0 || nums[i][j-1]<nums[i][j]) && (i==0 || nums[i-1][j]<nums[i][j])) return {i,j};
+
+        int lo=0;
+        int hi=m-1;
+        while(lo<=hi){
+            int mid = lo + (hi - lo) / 2;
+
+            int row = 0;
+            int maximum = nums[0][mid];
+
+            for (int i = 1; i < n; i++) {
+                if (nums[i][mid] > maximum) {
+                    maximum = nums[i][mid];
+                    row = i;
+                }
+            }
+            if((mid==m-1 || maximum>nums[row][mid+1]) && (mid==0 || maximum>nums[row][mid-1])){
+                    return {row,mid};
+                }
+            else if(nums[row][mid]<nums[row][mid+1]){
+                lo=mid+1;
+            }
+            else{
+                hi=mid-1;
             }
         }
+
         return {};
     }
 };
