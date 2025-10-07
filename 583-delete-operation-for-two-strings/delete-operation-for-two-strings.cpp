@@ -1,23 +1,32 @@
 class Solution {
 public:
+    int n;
+    int m;
     vector<vector<int>>dp;
-    int find(string &s1,string &s2,int &n1,int &n2,int i,int j){
-        if(i>=n1){
-            return (n2-j);
+    int find(string &s1,string &s2,int i,int j){
+        if(i>=n && j>=m) return 0;
+        if(i>=n){
+            return m-j;
         }
-        if(j>=n2){
-            return (n1-i);
+        if(j>=m){
+            return n-i;
         }
         if(dp[i][j]!=-1) return dp[i][j];
         if(s1[i]==s2[j]){
-            return dp[i][j]=find(s1,s2,n1,n2,i+1,j+1);
+            int a=find(s1,s2,i+1,j+1);
+            return dp[i][j]=a;
         }
-        else return dp[i][j]=min(1+find(s1,s2,n1,n2,i+1,j),1+find(s1,s2,n1,n2,i,j+1));
+        else{
+            int a=find(s1,s2,i+1,j);
+            int b=find(s1,s2,i,j+1);
+            if(a==INT_MAX && b==INT_MAX) return dp[i][j]=INT_MAX;
+            else return dp[i][j]=1+min(a,b);
+        }
     }
-    int minDistance(string s1, string s2) {
-        int n1=s1.length();
-        int n2=s2.length();
-        dp.resize(n1+1,vector<int>(n2+1,-1));
-        return find(s1,s2,n1,n2,0,0);
+    int minDistance(string word1, string word2) {
+        n=word1.length();
+        m=word2.length();
+        dp.resize(n+1,vector<int>(m+1,-1));
+        return find(word1,word2,0,0);
     }
 };
