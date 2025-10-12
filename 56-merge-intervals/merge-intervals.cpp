@@ -1,22 +1,28 @@
 class Solution {
 public:
-     static bool cmp(const vector<int>& a,const vector<int>& b) {
-        return a[1]<b[1];
+    static bool cmp(const vector<int>& a,const vector<int>& b) {
+        return a[0]<b[0];
     }
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
-        int n=intervals.size();
         sort(intervals.begin(),intervals.end(),cmp);
-        vector<vector<int>>ans;
-        ans.push_back(intervals[n-1]);
-        for(int i=n-2;i>=0;i--){
-            if(intervals[i][1]>=ans[ans.size()-1][0]){
-                ans[ans.size()-1][0]=min(ans[ans.size()-1][0],intervals[i][0]);
-                ans[ans.size()-1][1]=max(ans[ans.size()-1][1],intervals[i][1]);
+        int n=intervals.size();
+        vector<vector<int>>v;
+        v.push_back(intervals[0]);
+        int i=1;
+
+        while(i<n){
+            auto x=v.back();
+            auto y=intervals[i];
+
+            if(x[1]>=y[0]){
+                v.pop_back();
+                v.push_back({min(x[0],y[0]),max(x[1],y[1])});
             }
             else{
-                ans.push_back(intervals[i]);
+                v.push_back(intervals[i]);
             }
+            i++;
         }
-        return ans;
+        return v;
     }
 };
