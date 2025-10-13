@@ -1,28 +1,33 @@
 class Solution {
 public:
-    vector<vector<int>>ans;
-    void find(vector<int>& nums,int target,int i,vector<int>&v){
-        if(target==0){
-            ans.push_back(v);
+    vector<vector<int>>finalans;
+    int n;
+    void find(vector<int>&nums,int i,int target,vector<int>&ans){
+        if(i>=n){
+            if(target==0){
+                finalans.push_back(ans); 
+            }
             return;
         }
-        if(i>=nums.size()) return;
 
         if(nums[i]<=target){
-            v.push_back(nums[i]);
-            find(nums,target-nums[i],i+1,v);
-            v.pop_back();
+            ans.push_back(nums[i]);
+            find(nums,i+1,target-nums[i],ans);
+            ans.pop_back();
         }
 
+
         int j=i+1;
-        while(j<nums.size() && nums[j]==nums[j-1]) j++;
-        find(nums,target,j,v);
+        while(j<n && nums[j-1]==nums[j]){
+            j++;
+        }
+        find(nums,j,target,ans);
     }
     vector<vector<int>> combinationSum2(vector<int>& nums, int target) {
+        n=nums.size();
         sort(nums.begin(),nums.end());
-        vector<int>v;
-
-        find(nums,target,0,v);
-        return ans;
+        vector<int>ans;
+        find(nums,0,target,ans);
+        return finalans;
     }
 };
