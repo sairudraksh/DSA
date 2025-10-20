@@ -1,19 +1,21 @@
 class Solution {
 public:
     vector<vector<int>>dp;
-    int find(vector<int>&prices,int &fee,int i,int &n,bool flagg){
+    int find(vector<int>&nums,int &fee,int i,bool holding){
+        int n=nums.size();
         if(i>=n) return 0;
-        if(dp[i][flagg]!=-1) return dp[i][flagg];
-        if(flagg==false){
-            return dp[i][flagg]=max(find(prices,fee,i+1,n,true)-prices[i],find(prices,fee,i+1,n,flagg));
+        if(dp[i][holding]!=-1) return dp[i][holding];
+        if(holding){
+            return dp[i][holding]=max(nums[i]+find(nums,fee,i+1,false),find(nums,fee,i+1,true));
         }
         else{
-            return dp[i][flagg]=max(prices[i]+find(prices,fee,i+1,n,false)-fee,find(prices,fee,i+1,n,flagg));
+            return dp[i][holding]=max((find(nums,fee,i+1,true)-nums[i])-fee,find(nums,fee,i+1,false));
         }
+
     }
-    int maxProfit(vector<int>& prices, int fee) {
-        int n=prices.size();
+    int maxProfit(vector<int>& nums, int fee) {
+        int n=nums.size();
         dp.resize(n+1,vector<int>(2,-1));
-        return find(prices,fee,0,n,false);
+        return find(nums,fee,0,false);
     }
 };
