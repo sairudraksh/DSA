@@ -1,16 +1,20 @@
 class Solution {
 public:
     vector<vector<int>>dp;
-    int find(vector<int>&arr,int i,bool flagg){
-        if(i>=arr.size()) return 0;
-        if(dp[i][flagg]!=-1) return dp[i][flagg];
-        if(flagg==false){
-            return dp[i][flagg]=max(-arr[i]+find(arr,i+1,true),find(arr,i+1,false));
+    int find(vector<int>&nums,int i,bool holding){
+        int n=nums.size();
+        if(i>=n) return 0;
+        if(dp[i][holding]!=-1) return dp[i][holding];
+        if(holding){
+            return dp[i][holding]=max(nums[i]+find(nums,i+1,false),find(nums,i+1,true));
         }
-        return dp[i][flagg]=max(arr[i]+find(arr,i+1,false),find(arr,i+1,true));
+        else{
+            return dp[i][holding]=max(find(nums,i+1,true)-nums[i],find(nums,i+1,false));
+        }
     }
-    int maxProfit(vector<int>& prices) {
-        dp.resize(prices.size()+1,vector<int>(2,-1));
-        return find(prices,0,false);
+    int maxProfit(vector<int>& nums) {
+        int n=nums.size();
+        dp.resize(n+1,vector<int>(2,-1));
+        return find(nums,0,false);
     }
 };
