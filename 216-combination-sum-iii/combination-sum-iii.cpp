@@ -1,34 +1,40 @@
 class Solution {
 public:
     vector<vector<int>>ans;
-    void find(vector<int>&v,int &sum,int i,int &n,int &k){
+    void find(int &k,int &target,vector<int>&v,int &sum){
         if(v.size()>k) return;
-
-        if(v.size()==k){
-            if(sum==n){
-                ans.push_back(v);
-            }
+        if(sum>target) return;
+        
+        if(v.size()==k && sum==target){
+            ans.push_back(v);
             return;
         }
-        if(sum>n) return;
-        if(i>9) return;
 
-        int orgsum=sum;
+        if(v.size()==0){
+            for(int i=1;i<=9;i++){
+                v.push_back(i);
+                sum=sum+i;
+                find(k,target,v,sum);
+                sum=sum-i;
+                v.pop_back();
+            }
+        }
+        else{
+            int x=v[v.size()-1];
 
-        v.push_back(i);
-        sum+=i;
-        find(v,sum,i+1,n,k);
-
-        v.pop_back();
-        sum=orgsum;
-
-        find(v,sum,i+1,n,k);
+            for(int i=x+1;i<=9;i++){
+                v.push_back(i);
+                sum=sum+i;
+                find(k,target,v,sum);
+                sum=sum-i;
+                v.pop_back();
+            }
+        }
     }
     vector<vector<int>> combinationSum3(int k, int n) {
-        int sum=0;
         vector<int>v;
-
-        find(v,sum,1,n,k);
+        int sum=0;
+        find(k,n,v,sum);
         return ans;
     }
 };
