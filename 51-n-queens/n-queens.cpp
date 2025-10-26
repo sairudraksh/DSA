@@ -2,21 +2,20 @@ class Solution {
 public:
     vector<vector<string>>ans;
     vector<vector<char>>grid;
-
-    bool wecanput(int row,int col,int n){
-        for(int i=row-1;i>=0;i--){
+    bool wecanput(int n,int row,int col){
+        for(int i=row;i>=0;i--){
             if(grid[i][col]=='Q') return false;
         }
-        for(int i=row-1,j=col-1;i>=0 && j>=0;i--,j--){
+        for(int i=row,j=col;i>=0 && j>=0;i--,j--){
             if(grid[i][j]=='Q') return false;
         }
-        for(int i=row-1,j=col+1;i>=0 && j<n;i--,j++){
+        for(int i=row,j=col;i>=0 && j<n;i--,j++){
             if(grid[i][j]=='Q') return false;
         }
         return true;
     }
-    void find(int row,int n){
-        if(row==n){
+    void find(int n,int row){
+        if(row>=n){
             vector<string>v;
             for(int i=0;i<n;i++){
                 string s="";
@@ -28,19 +27,19 @@ public:
             ans.push_back(v);
             return;
         }
-        for(int j=0;j<n;j++){
-            if(wecanput(row,j,n)){
-                grid[row][j]='Q';
-                find(row+1,n);
-                grid[row][j]='.';
+        for(int i=0;i<n;i++){
+            if(wecanput(n,row,i)){
+                grid[row][i]='Q';
+                find(n,row+1);
+                grid[row][i]='.';
             }
         }
     }
     vector<vector<string>> solveNQueens(int n) {
-        grid.clear();
         ans.clear();
-        grid.resize(n,vector<char>(n,'.'));
-        find(0,n);
+        grid.clear();
+        grid.resize(n+1,vector<char>(n+1,'.'));
+        find(n,0);
         return ans;
     }
 };
