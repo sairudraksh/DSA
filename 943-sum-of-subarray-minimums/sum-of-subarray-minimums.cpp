@@ -1,47 +1,43 @@
 class Solution {
 public:
-    vector<int>NextSmaller(vector<int>&nums){
-        int n=nums.size();
-        vector<int>v(n,n);
-        stack<int>st;
-
-        for(int i=n-1;i>=0;i--){
-            while(!st.empty() && nums[st.top()]>=nums[i]){
-                st.pop();
-            }
-            if(!st.empty())v[i]=st.top();
-            st.push(i);
-        }
-        return v;
-    }
-    vector<int>PreviousSmaller(vector<int>&nums){
-        int n=nums.size();
-        vector<int>v(n,-1);
+    int n;
+    vector<int>findprev(vector<int>&nums){
+        vector<int>ans(n,-1);
         stack<int>st;
 
         for(int i=0;i<n;i++){
-            while(!st.empty() && nums[st.top()]>nums[i]){// not greater than equal to here as other wise it will be recomputed so either do >= above or here
+            while(!st.empty() && nums[i]<nums[st.top()]){
                 st.pop();
             }
-
-            if(!st.empty()) v[i]=st.top();
-
+            if(!st.empty()) ans[i]=st.top();
             st.push(i);
         }
-        return v;
+        return ans;
     }
-    int sumSubarrayMins(vector<int>& nums) {
-        int n=nums.size();
-        vector<int>nse=NextSmaller(nums);
-        vector<int>pse=PreviousSmaller(nums);
+    vector<int>findnext(vector<int>&nums){
+        vector<int>ans(n,n);
+        stack<int>st;
+        for(int i=n-1;i>=0;i--){
+            while(!st.empty() && nums[i]<=nums[st.top()]){
+                st.pop();
+            }
+            if(!st.empty()) ans[i]=st.top();
+            st.push(i);
+        }
+        return ans;
+    }   
+    int sumSubarrayMins(vector<int>& arr) {
+        n=arr.size();
+        vector<int>left=findprev(arr);
+        vector<int>right=findnext(arr);
 
         int total=0;
          int mod = 1e9 + 7;
         for(int i=0;i<n;i++){
-            int left=i-pse[i];
-            int right=nse[i]-i;
+            int leftt=i-left[i];
+            int rightt=right[i]-i;
 
-            total = (total + ((long long)left * right % mod) * nums[i] % mod) % mod;
+            total = (total + ((long long)leftt * rightt % mod) * arr[i] % mod) % mod;
         }
         return total%mod;
     }
