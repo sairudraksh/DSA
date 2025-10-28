@@ -1,31 +1,25 @@
 class Solution {
 public:
-    int n;
-    int m;
     vector<vector<int>>dp;
     int find(string &s1,string &s2,int i,int j){
-        if(i>=n && j>=m) return 0;
-        if(i>=n){
-            return m-j;
+        if(i>=s1.length() && j>=s2.length()) return 0;
+        else if(j>=s2.length()){
+            return s1.length()-i;
         }
-        if(j>=m){
-            return n-i;
+        else if(i>=s1.length()){
+            return s2.length()-j;
         }
         if(dp[i][j]!=-1) return dp[i][j];
         if(s1[i]==s2[j]){
-            int a=find(s1,s2,i+1,j+1);
-            return dp[i][j]=a;
+            return dp[i][j]=find(s1,s2,i+1,j+1);
         }
         else{
-            int a=find(s1,s2,i+1,j);
-            int b=find(s1,s2,i,j+1);
-            if(a==INT_MAX && b==INT_MAX) return dp[i][j]=INT_MAX;
-            else return dp[i][j]=1+min(a,b);
+            return dp[i][j]=1+min(find(s1,s2,i+1,j),find(s1,s2,i,j+1));
         }
     }
     int minDistance(string word1, string word2) {
-        n=word1.length();
-        m=word2.length();
+        int n=word1.length();
+        int m=word2.length();
         dp.resize(n+1,vector<int>(m+1,-1));
         return find(word1,word2,0,0);
     }
