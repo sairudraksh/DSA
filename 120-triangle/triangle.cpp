@@ -1,20 +1,14 @@
 class Solution {
 public:
-    int n;
     vector<vector<int>>dp;
-    int find(vector<vector<int>>&triangle,int i,int j){
-        if(i>=n || j>=triangle[i].size()) return INT_MAX;
+    int find(int i,int j,vector<vector<int>>& nums){
+        if(i==nums.size()-1) return nums[i][j];
         if(dp[i][j]!=INT_MIN) return dp[i][j];
-        int a=find(triangle,i+1,j);
-        int b=find(triangle,i+1,j+1);
-        
-        if(a==INT_MAX && b==INT_MAX) return dp[i][j]=triangle[i][j];
-        else return dp[i][j]=triangle[i][j]+min(find(triangle,i+1,j),find(triangle,i+1,j+1));
+        return dp[i][j]=nums[i][j]+min(find(i+1,j+1,nums),find(i+1,j,nums));
     }
-    int minimumTotal(vector<vector<int>>& triangle) {
-        n=triangle.size();
-        int m=triangle[n-1].size();
-        dp.resize(n+1,vector<int>(m+1,INT_MIN));
-        return find(triangle,0,0);
+    int minimumTotal(vector<vector<int>>& nums) {
+        int n=nums.size();
+        dp.resize(n+1,vector<int>(n+1,INT_MIN));
+        return find(0,0,nums);
     }
 };
