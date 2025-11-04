@@ -4,32 +4,29 @@ public:
         int n=nums.size();
         int m=nums[0].size();
 
+        int i=0;
+        int j=m-1;
 
-        int lo=0;
-        int hi=m-1;
-        while(lo<=hi){
-            int mid = lo + (hi - lo) / 2;
+        while(i<=j){
+            int mid=i+(j-i)/2;
 
-            int row = 0;
-            int maximum = nums[0][mid];
-
-            for (int i = 1; i < n; i++) {
-                if (nums[i][mid] > maximum) {
-                    maximum = nums[i][mid];
-                    row = i;
+            int maximum=nums[0][mid];
+            int row=0;
+            for(int k=0;k<n;k++){
+                if(nums[k][mid]>maximum){
+                    row=k;
+                    maximum=nums[k][mid];
                 }
             }
-            if((mid==m-1 || maximum>nums[row][mid+1]) && (mid==0 || maximum>nums[row][mid-1])){
-                    return {row,mid};
-                }
-            else if(nums[row][mid]<nums[row][mid+1]){
-                lo=mid+1;
+            if((mid==0 || nums[row][mid-1]<nums[row][mid]) &&  (mid==m-1 || nums[row][mid+1]<nums[row][mid])){
+                return {row,mid};
             }
-            else{
-                hi=mid-1;
+
+            else if(mid!=0 && nums[row][mid-1]>nums[row][mid]){
+                j=mid-1;
             }
+            else i=mid+1;
         }
-
         return {};
     }
 };
