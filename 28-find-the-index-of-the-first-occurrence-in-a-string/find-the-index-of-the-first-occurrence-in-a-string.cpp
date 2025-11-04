@@ -1,24 +1,26 @@
 class Solution {
 public:
     int strStr(string s1, string s2) {
-        int n=s1.length();
-        int m=s2.length();
-        for(int i=0;i<n;i++){
-            if(s1[i]==s2[0]){
-                bool found=true;
-                for(int j=0;j<m;j++){
-                    if(i+j>=n){
-                        found=false;
+        int n1=s1.length();
+        int n2=s2.length();
+
+        int i=0;
+        int j=0;
+        while(i<n1){
+            if(s1[i]==s2[j]){
+                int k=i;
+                while(k<n1){
+                    if(s1[k]!=s2[j]){
                         break;
                     }
-                    if(s1[i+j]!=s2[j]){
-                        found=false;
-                    }
+                    j++;
+                    k++;
+                    if(j==n2) return i;
                 }
-                if(found) return i;
             }
+            i++;
+            j=0;
         }
-
         return -1;
     }
 };
