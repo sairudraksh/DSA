@@ -13,7 +13,6 @@ public:
             take=find(nums,i,i+1);
             take.insert(take.begin(),nums[i]);
         }
-
         if(take.size()>notTake.size()) return dp[i][prev+1]=take;
         else return dp[i][prev+1]=notTake;
     }
