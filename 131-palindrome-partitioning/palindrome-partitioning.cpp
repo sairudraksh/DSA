@@ -1,36 +1,42 @@
 class Solution {
 public:
-    vector<vector<string>>v;
-    bool ispalindrome(string &ans){
-        if(ans.length()==1) return true;
+    int n;
+    vector<vector<string>>ans;
+    bool isPalindrome(string &s){
         int i=0;
-        int j=ans.length()-1;
+        int j=s.length()-1;
         while(i<=j){
-            if(ans[i]!=ans[j]) return false;
+            if(s[i]!=s[j]) return false;
             i++;
             j--;
         }
         return true;
     }
-    void find(string &s,int &n,vector<string>&ans,int i){
-        if(i>=n){
-            v.push_back(ans);
+    void find(string &s,vector<string>&v,string &str,int i){
+        if(i>=s.length()){
+            if(str=="") return;
+            if(isPalindrome(str)){
+                v.push_back(str);
+                ans.push_back(v);
+                v.pop_back();
+            }
             return;
         }
-        string ans1="";
-        for(int k=i;k<n;k++){
-            ans1+=s[k];
-            if(ispalindrome(ans1)==true){
-                ans.push_back(ans1);
-                find(s,n,ans,k+1);
-                ans.pop_back();
-            }
+        str+=s[i];
+        if(isPalindrome(str)){
+            v.push_back(str);
+            string neww="";
+            find(s,v,neww,i+1);
+            v.pop_back();
         }
+        find(s,v,str,i+1);
+        str.pop_back();
     }
     vector<vector<string>> partition(string s) {
-        int n=s.length();
-        vector<string>ans;
-        find(s,n,ans,0);
-        return v;
+        n=s.length();
+        vector<string>v;
+        string str="";
+        find(s,v,str,0);
+        return ans;
     }
 };
