@@ -1,25 +1,20 @@
 class Solution {
 public:
     unordered_map<char,string>map;
-    vector<string>finalans;
-    void find(string &digits,string &s,int i){
-        if(i>=digits.length()){
-            finalans.push_back(s);
+    vector<string>ans;
+    void find(string &digits,int i,string &str){
+        if(i>=digits.size()){
+            ans.push_back(str);
             return;
         }
-        string str=map[digits[i]];
-
-        for(int k=0;k<str.length();k++){
-            s+=str[k];
-            find(digits,s,i+1);
-            s.pop_back();
+        string s=map[digits[i]];
+        for(int l=0;l<s.length();l++){
+            str+=s[l];
+            find(digits,i+1,str);
+            str.pop_back();
         }
     }
     vector<string> letterCombinations(string digits) {
-        if(digits.size()==0){
-            return finalans;
-        }
-        string s="";
         map['2']="abc";
         map['3']="def";
         map['4']="ghi";
@@ -28,7 +23,8 @@ public:
         map['7']="pqrs";
         map['8']="tuv";
         map['9']="wxyz";
-        find(digits,s,0);
-        return finalans;        
+        string s="";
+        find(digits,0,s);
+        return ans;
     }
 };
