@@ -1,18 +1,30 @@
 class Solution {
 public:
-    void generate(string s,int n,vector<string>&v){
-        if(n==0){
+    vector<string>v;
+    void find(int n,string &s){
+        if(s.length()==n){
             v.push_back(s);
             return;
         }
-        generate(s+'1',n-1,v);
-        if(s==""||s[s.length()-1]=='1'){
-            generate(s+'0',n-1,v);
+        if(s.length()==0 || s[s.length()-1]=='1'){
+            s+='0';
+            find(n,s);
+            s.pop_back();
+            s+='1';
+            find(n,s);
+            s.pop_back();
+        }
+        else{
+            if(s[s.length()-1]=='0'){
+                s+='1';
+                find(n,s);
+                s.pop_back();
+            }
         }
     }
     vector<string> validStrings(int n) {
-        vector<string>v;
-        generate("",n,v);
+        string s="";
+        find(n,s);
         return v;
     }
 };
