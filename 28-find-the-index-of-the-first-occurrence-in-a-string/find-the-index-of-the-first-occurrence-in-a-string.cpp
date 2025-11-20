@@ -1,25 +1,22 @@
 class Solution {
 public:
-    int strStr(string s1, string s2) {
-        int n1=s1.length();
-        int n2=s2.length();
-
-        int i=0;
-        int j=0;
-        while(i<n1){
-            if(s1[i]==s2[j]){
-                int k=i;
-                while(k<n1){
-                    if(s1[k]!=s2[j]){
-                        break;
-                    }
-                    j++;
-                    k++;
-                    if(j==n2) return i;
+    bool isTrue(string s1,string s2,int i){
+        int m=s2.length();
+        for(int j=0;j<m;j++){
+            if(s1[i]!=s2[j]) return false;
+            i++;
+        }
+        return true;
+    }
+    int strStr(string nums1, string nums2) {
+        int n=nums1.length();
+        int m=nums2.length();
+        for(int i=0;i<n;i++){
+            if(nums1[i]==nums2[0]){
+                if(isTrue(nums1,nums2,i)){
+                    return i;
                 }
             }
-            i++;
-            j=0;
         }
         return -1;
     }
