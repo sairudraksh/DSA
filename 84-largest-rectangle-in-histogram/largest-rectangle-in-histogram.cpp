@@ -1,38 +1,35 @@
 class Solution {
 public:
-    int largestRectangleArea(vector<int>& arr) {
-        int n=arr.size();
+    int largestRectangleArea(vector<int>& heights) {
+        int n=heights.size();
         stack<int>st;
-        int nsi[n];
-        nsi[n-1]=n;
-        st.push(n-1);
-        for(int i=n-2;i>=0;i--){
-            while(st.size()>0 && arr[st.top()]>=arr[i]){
+        vector<int>psi(n,-1);
+        st.push(0);
+        for(int i=1;i<n;i++){
+            while(st.size()>0 && heights[st.top()]>=heights[i]){
                 st.pop();
             }
-            if(st.size()==0) nsi[i]=n;
-            else nsi[i]=st.top();
+            if(st.size()>0) psi[i]=st.top();
             st.push(i);
         }
-        stack<int>gt;
-        int psi[n];
-        psi[0]=-1;
-        gt.push(0);
-        for(int i=1;i<n;i++){
-            while(gt.size()>0 && arr[gt.top()]>=arr[i]){
-                gt.pop();
+
+        stack<int>st2;
+        vector<int>nsi(n,n);
+        st2.push(n-1);
+        for(int i=n-2;i>=0;i--){
+            while(st2.size()>0 && heights[st2.top()]>=heights[i]){
+                st2.pop();
             }
-            if(gt.size()==0) psi[i]=-1;
-            else psi[i]=gt.top();
-            gt.push(i);
+            if(st2.size()>0) nsi[i]=st2.top();
+            st2.push(i);
         }
-        int maxArea=INT_MIN;
+        int maximum=0;
         for(int i=0;i<n;i++){
-            int height=arr[i];
+            int length=heights[i];
             int breadth=nsi[i]-psi[i]-1;
-            int area=height*breadth;
-            maxArea=max(maxArea,area);
+            int area=length*breadth;
+            maximum=max(maximum,area);
         }
-        return maxArea;
+        return maximum;
     }
 };
