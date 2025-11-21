@@ -1,7 +1,7 @@
 class Solution {
 public:
     int subarraysWithKDistinct(vector<int>& nums, int k) {
-        int n=nums.size();
+        int n=nums.size();// Firstly we will find all the pairs of where qnique elements are less than equal to k and than less than equal to k-1 and then subtract both and we will get unique elements equal to k
         unordered_map<int,int>map;
         int i=0;
         int j=0;
