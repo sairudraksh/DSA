@@ -1,38 +1,42 @@
 class Solution {
 public:
-    int weCanput(vector<int>&nums,int k,int mid){
-        int n=nums.size();
+    int n;
+    int weCanput(vector<int>&nums,int &mid,int &k){
         int count=1;
-        int currsum=0;
-        for(int i=0;i<n;i++){
+        int sum=0;
+
+        for(int i=0;i<nums.size();i++){
             if(nums[i]>mid) return false;
-            currsum+=nums[i];
-            if(currsum>mid){
-                currsum=nums[i];
+            sum+=nums[i];
+
+            if(sum>mid){
                 count++;
+                sum=nums[i];
             }
         }
-        if(count>k) return false;
-        return true;
+        if(count<=k) return true;
+        return false;
     }
-    int splitArray(vector<int>& nums, int k){
-        int n=nums.size();
-        int l=INT_MAX;
+    int splitArray(vector<int>& nums, int k) {
+        n=nums.size();
         int sum=0;
+        int minimum=INT_MAX;
+
         for(int i=0;i<n;i++){
-            l=min(l,nums[i]);
+            minimum=min(minimum,nums[i]);
             sum+=nums[i];
         }
-        int r=sum;
-        int ans=1;
 
-        while(l<=r){
-            int mid=l+(r-l)/2;
-            if(weCanput(nums,k,mid)){
-                r=mid-1;
+        int lo=minimum;
+        int hi=sum;
+        int ans=-1;
+        while(lo<=hi){
+            int mid=lo+(hi-lo)/2;
+            if(weCanput(nums,mid,k)){
                 ans=mid;
+                hi=mid-1;
             }
-            else l=mid+1;
+            else lo=mid+1;
         }
         return ans;
     }
