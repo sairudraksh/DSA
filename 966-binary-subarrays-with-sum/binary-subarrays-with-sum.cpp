@@ -1,21 +1,19 @@
 class Solution {
 public:
     int find(vector<int>&nums,int goal){
+        int n=nums.size();
+        int count=0;
         int l=0;
         int r=0;
-
         int sum=0;
-        int count=0;
-        if(goal<0) return 0;
-        while(r<nums.size()){
+        while(r<n){
             sum+=nums[r];
-
-            while(sum>goal){
+            while(l<r && sum>goal){
                 sum-=nums[l];
                 l++;
             }
-            count+=(r-l+1);
-            r=r+1;
+            if(sum<=goal) count+=(r-l+1);
+            r++;
         }
         return count;
     }
