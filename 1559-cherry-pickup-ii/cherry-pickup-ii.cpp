@@ -1,45 +1,22 @@
 class Solution {
 public:
-    long long n;
-    long long m;
-    long long dp[70][70][70];
-    long long f(long long i,long long j,long long x,long long y,vector<vector<int>>& grid){
-        if(i>=n || j>=m || x>=n || y>=m || i<0 || j<0 || x<0 || y<0) return LLONG_MIN;
-        if((i==n-1 && x!=n-1) || (i!=n-1 && x==n-1)){
-            return LLONG_MIN;
+    int n;
+    int m;
+    int dp[71][71][71];
+    int find(vector<vector<int>>&grid,int i1,int j1,int i2,int j2){
+        if(i1<0 || j1<0 || i1>=n || j1>=m || i2<0 || j2<0 || i2>=n || j2>=m) return 0;
+        if(dp[i1][j1][j2]!=-1) return dp[i1][j1][j2];
+        if(j1==j2){
+            return dp[i1][j1][j2]=grid[i1][j1]+max({find(grid,i1+1,j1+1,i2+1,j2),find(grid,i1+1,j1+1,i2+1,j2+1),find(grid,i1+1,j1+1,i2+1,j2-1),find(grid,i1+1,j1,i2+1,j2),find(grid,i1+1,j1,i2+1,j2+1),find(grid,i1+1,j1,i2+1,j2-1),find(grid,i1+1,j1-1,i2+1,j2),find(grid,i1+1,j1-1,i2+1,j2+1),find(grid,i1+1,j1-1,i2+1,j2-1)});
         }
-        if(i==n-1 && x==n-1){
-            if(j==y) return grid[i][j];
-            else return grid[i][j]+grid[x][y];
+        else {
+            return dp[i1][j1][j2]=grid[i1][j1]+grid[i2][j2]+max({find(grid,i1+1,j1+1,i2+1,j2),find(grid,i1+1,j1+1,i2+1,j2+1),find(grid,i1+1,j1+1,i2+1,j2-1),find(grid,i1+1,j1,i2+1,j2),find(grid,i1+1,j1,i2+1,j2+1),find(grid,i1+1,j1,i2+1,j2-1),find(grid,i1+1,j1-1,i2+1,j2),find(grid,i1+1,j1-1,i2+1,j2+1),find(grid,i1+1,j1-1,i2+1,j2-1)});
         }
-        if(dp[j][x][y]!=-1) return dp[j][x][y];
-        long long result=LLONG_MIN;
-        result=max(result,f(i+1,j-1,x+1,y-1,grid));
-        result=max(result,f(i+1,j-1,x+1,y,grid));
-        result=max(result,f(i+1,j-1,x+1,y+1,grid));
-
-        result=max(result,f(i+1,j,x+1,y,grid));
-        result=max(result,f(i+1,j,x+1,y-1,grid));
-        result=max(result,f(i+1,j,x+1,y+1,grid));
-
-        result=max(result,f(i+1,j+1,x+1,y,grid));
-        result=max(result,f(i+1,j+1,x+1,y-1,grid));
-        result=max(result,f(i+1,j+1,x+1,y+1,grid));
-
-        if(result==LLONG_MIN) return dp[j][x][y]=LLONG_MIN;
-        result+=grid[i][j];
-        result+=grid[x][y];
-
-        if(i==x && j==y) result-=grid[x][y];
-
-        return dp[j][x][y]=result;
     }
     int cherryPickup(vector<vector<int>>& grid) {
         n=grid.size();
         m=grid[0].size();
-        memset(dp,-1,sizeof dp);
-        long long a=f(0,0,0,m-1,grid);
-        if(a==LLONG_MIN) return 0;
-        return a;
+        memset(dp, -1, sizeof(dp));
+        return find(grid,0,0,0,m-1);
     }
 };
