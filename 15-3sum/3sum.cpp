@@ -20,7 +20,7 @@ public:
         if(n<3) return {};
         sort(nums.begin(),nums.end());
         for(int i=0;i<n;i++){
-            int target=-nums[i];
+            int target=-nums[i]; // so (n1+n2+n3==0) but we convert this problem to two sum by (n2+n3=-n1);
             if(i!=0 && nums[i]==nums[i-1]) continue;
 
             find(nums,target,i+1,n-1);
