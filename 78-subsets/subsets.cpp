@@ -1,20 +1,19 @@
 class Solution {
 public:
-    void subsets(vector<int>ans,int idx,int n,vector<int>nums,vector<vector<int>>&finalans){
-        if(idx==n){
-            finalans.push_back(ans);
+    vector<vector<int>>ans;
+    void find(vector<int>&nums,int i,vector<int>&v){
+        if(i>=nums.size()){
+            ans.push_back(v);
             return;
         }
-        subsets(ans,idx+1,n,nums,finalans);
-        ans.push_back(nums[idx]);
-        subsets(ans,idx+1,n,nums,finalans);
-    } 
+        v.push_back(nums[i]);
+        find(nums,i+1,v);
+        v.pop_back();
+        find(nums,i+1,v);
+    }
     vector<vector<int>> subsets(vector<int>& nums) {
-        vector<int>ans;
-        int idx=0;
-        int n=nums.size();
-        vector<vector<int>>finalans;
-        subsets(ans,idx,n,nums,finalans);
-        return finalans;
+        vector<int>v;
+        find(nums,0,v);
+        return ans;
     }
 };
