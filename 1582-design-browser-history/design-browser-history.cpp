@@ -1,36 +1,36 @@
 class BrowserHistory {
 public:
-    vector<string>v;
-    int i;
+    stack<string>past;
+    stack<string>future;
+    string curr;
     BrowserHistory(string homepage) {
-        i=0;
-
-        v.push_back(homepage);
+        curr=homepage;
     }
     
     void visit(string url) {
-        v.resize(i + 1);
-        v.push_back(url);
-        i++;
+        past.push(curr);
+        curr=url;
+        future=stack<string>();
     }
     
     string back(int steps) {
-        int k=steps;
-        while(i>0 && k>0){
-            i--;
-            k--;
+        while(past.size()>0 && steps>0){
+            future.push(curr);
+            curr=past.top();
+            past.pop();
+            steps--;
         }
-        return v[i];
+        return curr;
     }
     
     string forward(int steps) {
-        int k=steps;
-        while(i<v.size()-1 && k>0){
-            i++;
-            k--;
+        while(future.size()>0 && steps>0){
+            past.push(curr);
+            curr=future.top();
+            future.pop();
+            steps--;
         }
-        return v[i];
-        
+        return curr;
     }
 };
 
