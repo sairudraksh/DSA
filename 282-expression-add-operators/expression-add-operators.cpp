@@ -19,7 +19,7 @@ public:
             else{
                 find(num,target,i+1,curr+val,val,path+'+'+s);
                 find(num,target,i+1,curr-val,-val,path+'-'+s);
-                find(num,target,i+1,curr-last+(last*val),last*val,path+'*'+s);
+                find(num,target,i+1,curr-last+(last*val),last*val,path+'*'+s);// remove last added and multiply current dou to Bodmas
             }
         }
     }
