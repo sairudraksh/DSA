@@ -16,8 +16,8 @@ public:
                 int temp=nums[mid];
                 nums[mid]=nums[lo];
                 nums[lo]=temp;
-                lo++;
                 mid++;
+                lo++;
             }
             else{
                 mid++;
