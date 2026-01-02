@@ -3,17 +3,13 @@ public:
     int n;
     int m;
     vector<vector<int>>dp;
-    int find(vector<vector<int>>&grid,int i,int j){
-        if(i==n-1 && j==m-1) return grid[i][j];
+    int find(vector<vector<int>>& grid,int i,int j){
         if(i>=n || j>=m) return INT_MAX;
+        if(i==n-1 && j==m-1) return grid[i][j];
         if(dp[i][j]!=-1) return dp[i][j];
         int a=find(grid,i+1,j);
         int b=find(grid,i,j+1);
-
         if(a==INT_MAX && b==INT_MAX) return dp[i][j]=INT_MAX;
-        else if(a==INT_MAX) return dp[i][j]=grid[i][j]+b;
-        else if(b==INT_MAX) return dp[i][j]=grid[i][j]+a;
-
         return dp[i][j]=grid[i][j]+min(a,b);
     }
     int minPathSum(vector<vector<int>>& grid) {
