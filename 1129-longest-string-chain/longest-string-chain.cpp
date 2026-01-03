@@ -41,7 +41,7 @@ public:
     }
     int longestStrChain(vector<string>& words) {
         n=words.size();
-        sort(words.begin(), words.end(), [](const string &a,const string &b){
+        sort(words.begin(), words.end(), [](const string &a,const string &b){// sort wrt length
             return a.size() < b.size();
         });
         dp.resize(n+1,vector<int>(n+1,-1));
