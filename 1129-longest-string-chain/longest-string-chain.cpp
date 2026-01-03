@@ -2,38 +2,49 @@ class Solution {
 public:
     int n;
     vector<vector<int>>dp;
-    bool isTrue(string &s1,string &s2){
-        if(s1.length()-s2.length()!=1) return false;
+    bool isTrue(vector<string>&words,int k,int previdx){
+        if(words[k].length()!=words[previdx].length()+1) return false;
+        int i=0;
         int j=0;
-        for(int i=0;i<s1.length();i++){
-            if(j<s2.length() && s1[i]==s2[j]) j++;
-        }
-        return j==s2.length();
-    }
-    int find(vector<string>&nums,int i,int prev){
-        while(i<n && prev!=-1 && nums[i].length()==nums[prev].length()){
-            i++;
-        }
-        if(i>=n) return 0;
-        if(dp[i][prev+1]!=-1) return dp[i][prev+1];
-        if(prev==-1){
-            return dp[i][prev+1]=max(1+find(nums,i+1,i),find(nums,i+1,prev));
-        }
-        else{
-            if(isTrue(nums[i],nums[prev])){
-                return dp[i][prev+1]=max(find(nums,i+1,prev),1+find(nums,i+1,i));
+        int count=0;
+        string s1=words[k];
+        string s2=words[previdx];
+        while(i<words[k].length() && j<words[previdx].length()){
+            if(s1[i]!=s2[j]){
+                count++;
+                i++;
             }
             else{
-                return dp[i][prev+1]=find(nums,i+1,prev);
+                i++;
+                j++;
             }
+            if(count>1) return false;
+        }
+        if(count>1) return false;
+        return true;
+    }
+    int find(vector<string>&words,int i,int previdx){
+        if(i>=n) return 0;
+        if(dp[i][previdx+1]!=-1) return dp[i][previdx+1];
+        if(previdx==-1){
+            return dp[i][previdx+1]=max(1+find(words,i+1,i),find(words,i+1,previdx));
+        }
+        else{
+            int a=0;
+            int b=0;
+            a=find(words,i+1,previdx);
+            if(isTrue(words,i,previdx)){
+                b=1+find(words,i+1,i);
+            }
+            return dp[i][previdx+1]=max(a,b);
         }
     }
     int longestStrChain(vector<string>& words) {
         n=words.size();
-        dp.resize(n+1,vector<int>(n+1,-1));
-        sort(words.begin(), words.end(), [](const string &a,const string &b){// sorting wrt to length
+        sort(words.begin(), words.end(), [](const string &a,const string &b){
             return a.size() < b.size();
         });
+        dp.resize(n+1,vector<int>(n+1,-1));
         return find(words,0,-1);
     }
 };
