@@ -10,7 +10,7 @@ public:
         int take=find(nums1,nums2,i+1,j+1);
         ans+=nums1[i]*nums2[j];
         int notTake=max(find(nums1,nums2,i+1,j),find(nums1,nums2,i,j+1));
-        if(take>0){
+        if(take>0){// if take is greater than 0 then anly add oyher wise it willl becone worse otherwise ans is compared later
             take+=ans;
             return dp[i][j]=max(take,notTake);
         }
