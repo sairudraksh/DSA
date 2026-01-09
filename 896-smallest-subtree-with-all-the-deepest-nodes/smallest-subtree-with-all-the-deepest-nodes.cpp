@@ -1,38 +1,37 @@
 class Solution {
 public:
-    bool exists(TreeNode* root,TreeNode* target){
-        if(root==NULL) return false; 
-        if(root==target) return true;
-        return exists(root->left,target) || exists(root->right,target);
+    bool exist(TreeNode* root,TreeNode* p){
+        if(root==NULL) return false;
+        if(root==p) return true;
+        if(exist(root->left,p) || exist(root->right,p)) return true;
+        return false;
     }
-    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        if(root==p || root==q) return root;
-        else if (exists(root->left,p) && exists(root->right,q)) return root;
-        else if (!exists(root->left,p) && !exists(root->right,q)) return root;
-        else if (exists(root->left,p) && !exists(root->right,q)) return lowestCommonAncestor(root->left,p,q);
-        else return lowestCommonAncestor(root->right,p,q);
-    }
-    void findleaves(vector<TreeNode*>&v,TreeNode* root,int target,int curr){
-        if(root==NULL) return;
-        if(target==curr){
-            v.push_back(root);
-            return;
-        }
-        findleaves(v,root->left,target,curr+1);
-        findleaves(v,root->right,target,curr+1);
-    }
-    int leaves(TreeNode* root){
-        if(root==NULL) return 0;
-        return 1+max(leaves(root->left),leaves(root->right));
-    }
-    TreeNode* subtreeWithAllDeepest(TreeNode* root) { 
+    TreeNode* exists(TreeNode* root,TreeNode* p,TreeNode* q){
         if(root==NULL) return NULL;
-        int k=leaves(root);
+        if(root==p || root==q) return root;
+        if((exist(root->left,p) && exist(root->right,q)) || (exist(root->left,q) && exist(root->right,p))) return root;
+        if((exist(root->left,p) && !exist(root->right,q)) || (exist(root->left,q) && !exist(root->right,p))) return exists(root->left,p,q);
+        if((!exist(root->left,p) && exist(root->right,q)) || (!exist(root->left,q) && exist(root->right,p))) return exists(root->right,p,q);
+        return NULL;
+    }
+    int level(TreeNode* root){
+        if(root==NULL) return 0;
+        return 1+max(level(root->left),level(root->right));
+    }
+    void find(TreeNode* root,int i,int &n,vector<TreeNode*>&v){
+        if(root==NULL) return;
+        find(root->left,i+1,n,v);
+        if(i==n) v.push_back(root);
+        find(root->right,i+1,n,v);
+    }
+    TreeNode* subtreeWithAllDeepest(TreeNode* root) {
+        if(root==NULL) return NULL;
+        int n=level(root);
         vector<TreeNode*>v;
-        findleaves(v,root,k,1);
-        int  n=v.size();
+        find(root,1,n,v);
         TreeNode* p=v[0];
-        TreeNode* q=v[n-1];
-        return lowestCommonAncestor(root,p,q);
+        TreeNode* q=v[v.size()-1];
+        TreeNode* a=exists(root,p,q);
+        return a;
     }
 };
