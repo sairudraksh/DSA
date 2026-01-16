@@ -35,7 +35,7 @@ public:
             high=max(high,y+l);
         }
         double ans=0.00000;
-        while(high-low>1e-5){
+        while(high-low>1e-5){// here we will find the total area and then bottom area and wrt that we will find area of boitbside;
             double mid=low+(high-low)/2;
 
             ans=mid;
