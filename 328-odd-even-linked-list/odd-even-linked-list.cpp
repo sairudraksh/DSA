@@ -1,29 +1,30 @@
 class Solution {
 public:
     ListNode* oddEvenList(ListNode* head) {
-        ListNode* lo=new ListNode(100);
-        ListNode* hi=new ListNode(10);
-        ListNode* tempLo=lo;
-        ListNode* tempHi=hi;
+        int count=1;
+        ListNode* ans=new ListNode(-1);
+        ListNode* dummy=ans;
         ListNode* temp=head;
-        int n=1;
         while(temp!=NULL){
-            if(n%2!=0){
-                tempLo->next=temp;
-                temp=temp->next;
-                tempLo=tempLo->next;
-                n++;
+            if(count%2!=0){
+                ListNode* t=new ListNode(temp->val);
+                dummy->next=t;
+                dummy=dummy->next;
             }
-            else{
-                tempHi->next=temp;
-                temp=temp->next;
-                tempHi=tempHi->next;
-                n++;
-
-            }
+            count++;
+            temp=temp->next;
         }
-        tempLo->next=hi->next;
-        tempHi->next=NULL;
-        return lo->next; 
+        count=1;
+        temp=head;
+        while(temp!=NULL){
+            if(count%2==0){
+                ListNode* t=new ListNode(temp->val);
+                dummy->next=t;
+                dummy=dummy->next;
+            }
+            count++;
+            temp=temp->next;
+        }
+        return ans->next;
     }
 };
