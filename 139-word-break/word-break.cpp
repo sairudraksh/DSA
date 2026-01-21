@@ -1,29 +1,26 @@
-class Solution {
+class Solution {//string s1=s.substr(i,j-i+1);
 public:
     unordered_map<string,int>map;
     vector<vector<int>>dp;
-    bool find(string s,int i,int j){
-        if(j>=s.length()) return false;
+    int find(int i,int j,string &s){
+        if(i>=s.length() && j>=s.length()) return true;
+        if(i>=s.length() || j>=s.length()) return false;
         if(dp[i][j]!=-1) return dp[i][j];
         string s1=s.substr(i,j-i+1);
-        bool a=false;
-        bool b=false;
 
         if(map.find(s1)!=map.end()){
-            if(j==s.length()-1) return dp[i][j]=true;
-            a=find(s,j+1,j+1);
+            return dp[i][j]=(find(j+1,j+1,s) || find(i,j+1,s));
         }
-        b=find(s,i,j+1);
-
-        if(a==true || b==true) return dp[i][j]=true;
-        return dp[i][j]=false;
+        else{
+            return dp[i][j]=find(i,j+1,s);
+        }
     }
     bool wordBreak(string s, vector<string>& wordDict) {
-        int n=s.length();
-        dp.resize(n+1,vector<int>(n+1,-1));
+        int n=wordDict.size();
         for(int i=0;i<wordDict.size();i++){
             map[wordDict[i]]++;
         }
-        return find(s,0,0);
+        dp.resize(s.length()+1,vector<int>(s.length()+1,-1));
+        return find(0,0,s);
     }
 };
