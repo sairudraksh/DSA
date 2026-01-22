@@ -2,36 +2,29 @@ class Solution {
 public:
     int smallestDivisor(vector<int>& nums, int threshold) {
         int n=nums.size();
-        int lo=1;
-        int maximum=-1;
+        int minimum=INT_MAX;
+        int maximum=INT_MIN;
+
         for(int i=0;i<nums.size();i++){
-            maximum=max(nums[i],maximum);
+            maximum=max(maximum,nums[i]);
+            minimum=min(minimum,nums[i]);
         }
+        int lo=1;
         int hi=maximum;
-        int ans=maximum;
+        int ans=0;
         while(lo<=hi){
             int mid=lo+(hi-lo)/2;
-
-            int sum=0;
+            int count=0;
             for(int i=0;i<n;i++){
-                if(nums[i]<=mid){
-                    sum++;
-                }
-                else if(nums[i]%mid==0){
-                    sum=sum+(nums[i]/mid);
-                }
-                else{
-                    sum=sum+(nums[i]/mid);
-                    sum++;
-                }
+                int num=nums[i];
+                count+=(num/mid);
+                if(num%mid>0) count++;
             }
-            if(sum<=threshold){
-                hi=mid-1;
+            if(count<=threshold){
                 ans=mid;
+                hi=mid-1;
             }
-            else{
-                lo=mid+1;
-            }
+            else lo=mid+1;
         }
         return ans;
     }
