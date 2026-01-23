@@ -14,7 +14,7 @@ public:
 
             if(r-l+1-maxfreq>k){
                 map[nums[l]]--;
-                if(map[nums[l]]==0) map.erase(nums[l]);
+                if(map[nums[l]]==0) map.erase(nums[l]);//  we do not update maxfreq as we want now greater freq so we can get of same length but at a some poinnt we will get another window of maximum ans it will automitacially update 
                 l++;
             }
             ans=max(ans,r-l+1);
