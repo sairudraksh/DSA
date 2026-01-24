@@ -1,7 +1,7 @@
 class MyStack {
 public:
     queue<int>q1;
-    queue<int>q2;
+    queue<int>q2;// using 1 queue is left;
     MyStack() {
         
     }
