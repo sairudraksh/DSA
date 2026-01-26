@@ -1,29 +1,27 @@
 class Solution {
 public:
     vector<bool>visited;
-    set<string>st;
-    void find(string &s,string &str){
-        
+    int find(string &s,string &str){
+        int count=0;
 
         for(int i=0;i<s.length();i++){
-            if (i>0 && s[i]==s[i - 1] && !visited[i-1]) continue;
+            if (i>0 && s[i]==s[i - 1] && !visited[i-1]) continue;// we skip as in later calls first a might be taken and we will get duplicate so to avioid this we  will always take first A
             if(visited[i]) continue;
             else{
                 visited[i]=true;
                 str+=s[i];
-                st.insert(str);
-                find(s,str);
+                count++;
+                count+=find(s,str);
                 str.pop_back();
                 visited[i]=false;
             }
         }
-      
+        return count;
     }
     int numTilePossibilities(string s) {
         string str="";
         sort(s.begin(),s.end());
         visited.resize(s.length()+1,false);
-        find(s,str);
-        return st.size();
+        return find(s,str);
     }
 };
