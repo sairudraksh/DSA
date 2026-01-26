@@ -1,21 +1,52 @@
+// class Solution {
+// public:
+    // vector<vector<int>>ans;
+    // void find(TreeNode* root,int &curr,int &target,vector<int>&v){
+    //     if(root==NULL) return ;
+    //     if(root->left==NULL && root->right==NULL){
+    //         curr+=root->val;
+    //         v.push_back(root->val);
+    //         if(curr==target){
+    //             ans.push_back(v);
+    //         }
+    //         curr-=root->val;
+    //         v.pop_back();
+    //         return;
+    //     }
+    //     curr+=root->val;
+    //     v.push_back(root->val);
+    //     find(root->left,curr,target,v);
+    //     find(root->right,curr,target,v);
+    //     curr-=root->val;
+    //     v.pop_back();
+    // }
+//     vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
+//         if(root==NULL) return ans;
+//         vector<int>v;
+//         int curr=0;
+//         find(root,curr,targetSum,v);
+//         return ans;
+//     }
+// };
 class Solution {
 public:
-    void find(TreeNode* root,long long &count,long long sum,int targetsum){
+    int count=0;
+    void find(TreeNode* root,long long &curr,int &target){
         if(root==NULL) return;
-        sum=sum+root->val;
-        if(sum==targetsum){
+        curr+=root->val;
+        if(curr==target){
             count++;
         }
-        find(root->left,count,sum,targetsum);
-        find(root->right,count,sum,targetsum);
+        find(root->left,curr,target);
+        find(root->right,curr,target);
+        curr-=root->val;
     }
     int pathSum(TreeNode* root, int targetSum) {
-        if(root==NULL) return 0;
-        long long count=0;
-        long long sum=0;
-        find(root,count,sum,targetSum);
-        count=count+pathSum(root->left,targetSum);
-        count=count+pathSum(root->right,targetSum);
+        if(root==NULL) return count;
+        long long curr=0;
+        find(root,curr,targetSum);
+        pathSum(root->left,targetSum);
+        pathSum(root->right,targetSum);
         return count;
     }
 };
