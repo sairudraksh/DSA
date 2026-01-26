@@ -10,7 +10,7 @@ public:
             else{
                 visited[i]=true;
                 str+=s[i];
-                count++;
+                count++;// current str;
                 count+=find(s,str);
                 str.pop_back();
                 visited[i]=false;
