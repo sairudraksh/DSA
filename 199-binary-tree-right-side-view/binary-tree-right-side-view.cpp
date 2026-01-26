@@ -17,11 +17,11 @@ public:
     }
     void find(TreeNode* root,int curr,int &target,vector<int>&v){
         if(root==NULL) return;
+        find(root->left,curr+1,target,v);
         if(curr==target){
             v.push_back(root->val);
             return;
         }
-        find(root->left,curr+1,target,v);
         find(root->right,curr+1,target,v);
     }
     vector<int> rightSideView(TreeNode* root) {
