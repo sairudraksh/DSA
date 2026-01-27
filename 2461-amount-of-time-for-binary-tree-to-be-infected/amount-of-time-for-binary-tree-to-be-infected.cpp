@@ -48,7 +48,7 @@ public:
         }
         return maxi;    
     }
-    TreeNode* find(TreeNode* root,int start,unordered_map<TreeNode*,TreeNode*>&map){
+    TreeNode* find(TreeNode* root,int start,unordered_map<TreeNode*,TreeNode*>&map){// do pass by reference as we want to change original value
         if(root==NULL) return NULL;
 
         TreeNode* res=NULL;
