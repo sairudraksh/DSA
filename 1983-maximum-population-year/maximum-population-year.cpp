@@ -1,29 +1,24 @@
 class Solution {
 public:
     int maximumPopulation(vector<vector<int>>& logs) {
-        vector<int>diff(2051,0);
-
+        vector<vector<int>>v;
         int n=logs.size();
         for(int i=0;i<n;i++){
-            int birth=logs[i][0];
-            int death=logs[i][1];
-
-            diff[birth]+=1;
-            diff[death]-=1;
+            v.push_back({logs[i][0],+1});
+            v.push_back({logs[i][1],-1});
         }
-
-        int minyear=2050;
+        
+        sort(v.begin(),v.end());
         int currpop=0;
         int maxpop=0;
-
-        for(int i=1950;i<2051;i++){
-            currpop+=diff[i];
-
+        int ans=2050;
+        for(int i=0;i<v.size();i++){
+            currpop+=v[i][1];
             if(currpop>maxpop){
                 maxpop=currpop;
-                minyear=i;
+                ans=v[i][0];
             }
         }
-        return minyear;
+        return ans;
     }
 };
