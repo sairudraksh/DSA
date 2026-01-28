@@ -1,6 +1,6 @@
 class MyCalendarTwo {
 public:
-    map<int,int>mp;
+    map<int,int>mp;// we will use ordered map as then map will iterate like 10,20,30,40,50 like this and this is domne using line sweep algorithm                       
     MyCalendarTwo() {
          
     }
