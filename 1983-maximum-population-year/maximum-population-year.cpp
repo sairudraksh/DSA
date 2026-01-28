@@ -11,7 +11,7 @@ public:
         sort(v.begin(),v.end());
         int currpop=0;
         int maxpop=0;
-        int ans=1950;
+        int ans=2050;
         for(int i=0;i<v.size();i++){
             currpop+=v[i][1];
             if(currpop>maxpop){
