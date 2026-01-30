@@ -48,7 +48,6 @@ public:
 
             if(str.length()<=3) find(s,str,ans,i+1);
         }
-        str.pop_back();
     }
     vector<string> restoreIpAddresses(string s){
         n=s.length();
