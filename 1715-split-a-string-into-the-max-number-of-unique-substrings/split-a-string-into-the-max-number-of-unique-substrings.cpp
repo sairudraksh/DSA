@@ -9,20 +9,22 @@ public:
             }
             return map.size();
         }
-        str+=s[i];
+       
         int a=0;
         int b=0;
-        a=find(s,str,i+1,map);
 
-        if(!str.empty() && !map.count(str)){
-            string newstr=str;
-            map[newstr]++;
+        string org=str;
+
+        str+=s[i];
+        a=find(s,str,i+1,map);
+        
+        if(map.find(str)==map.end()){
+            map[org+s[i]]++;
             str="";
             b=find(s,str,i+1,map);
-            str=newstr;
-            map.erase(str);
+            map.erase(org+s[i]);
+            str=org;
         }
-        str.pop_back();
         return max(a,b);
     }
     int maxUniqueSplit(string s) {
@@ -31,4 +33,4 @@ public:
         unordered_map<string,int>map;
         return find(s,str,0,map);
     }
-};
+}; 
