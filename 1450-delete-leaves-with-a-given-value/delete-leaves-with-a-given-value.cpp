@@ -11,7 +11,7 @@
  */
 class Solution {
 public:
-    TreeNode* removeLeafNodes(TreeNode* &root, int target) {// we have to add & here to cah ge the original copy
+    TreeNode* removeLeafNodes(TreeNode* &root, int target) {// we have to add & here to cange ge the original copy
         if(root==NULL) return root;
         if(root->left==NULL && root->right==NULL){
             if(root->val==target){
