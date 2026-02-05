@@ -1,22 +1,34 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
 class Solution {
 public:
-    int find(TreeNode* root){
+    int findDepth(TreeNode* root){
         if(root==NULL) return 0;
-        return 1+max(find(root->left),find(root->right));
+
+        return 1+max(findDepth(root->left),findDepth(root->right));
+    }
+    bool find(TreeNode* root){
+        if(root==NULL) return true;
+
+        int dept1=findDepth(root->left);
+        int dept2=findDepth(root->right);
+        if(abs(dept2-dept1)>1) return false;
+
+        bool a=find(root->left);
+        bool b=find(root->right);
+
+        return a && b;
     }
     bool isBalanced(TreeNode* root) {
-        if(root==NULL) return true;
-        int n1=find(root->left);
-        int n2=find(root->right);
-        if(n1>=n2){
-            if((n1-n2)>1) return false;
-        }
-        else if(n2>n1){
-            if((n2-n1)>1) return false;
-        }
-        bool a=isBalanced(root->left);
-        bool b=isBalanced(root->right);
-        if(a==true && b==true) return true;
-        return false;
+        return find(root);
     }
 };
