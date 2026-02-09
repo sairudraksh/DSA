@@ -1,8 +1,6 @@
 class Solution {
 public:
     int minIncrementForUnique(vector<int>& nums) {
-        vector<int>v1={2,2,2,2,2,2,2};
-        if(nums==v1) return 21;
         int n=nums.size();
         unordered_map<int,int>map;
         int maximum=0;
@@ -20,7 +18,7 @@ public:
 
         int count=0;
         int idx=0;
-        for(int i=0;i<=maximum+maximum+1;i++){
+        for(int i=0;i<=maximum+n;i++){
             if(idx>=v.size()) break;
             if(map.find(i)==map.end()){
                 if(v[idx]<=i){
