@@ -11,24 +11,21 @@
  */
 class Solution {
 public:
-    int findDepth(TreeNode* root){
+    int dept(TreeNode* root){
         if(root==NULL) return 0;
-
-        return 1+max(findDepth(root->left),findDepth(root->right));
-    }
-    bool find(TreeNode* root){
-        if(root==NULL) return true;
-
-        int dept1=findDepth(root->left);
-        int dept2=findDepth(root->right);
-        if(abs(dept2-dept1)>1) return false;
-
-        bool a=find(root->left);
-        bool b=find(root->right);
-
-        return a && b;
+        return 1+max(dept(root->left),dept(root->right));
     }
     bool isBalanced(TreeNode* root) {
-        return find(root);
+        if(root==NULL) return true;
+
+        int left=dept(root->left);
+        int right=dept(root->right);
+
+        if(abs(right-left)>=2) return false;
+
+        bool a=isBalanced(root->left);
+        bool b=isBalanced(root->right);
+
+        return a && b;
     }
 };
