@@ -1,33 +1,33 @@
 class Solution {
 public:
-    bool check(unordered_map<char,int>&map){
+    bool isBalanced(unordered_map<char,int>&map){
         int count=0;
-        int val=-1;
-        for(auto x:map){
-            if(count==0) val=x.second;
-            else{
-                if(x.second!=val) return false;
+        int val=0;
+        for(auto &x:map){
+            if(count==0){
+                val=x.second;
+                count++;
             }
-            count++;
+            else if(x.second!=val){
+                return false;
+            }
         }
         return true;
     }
     int longestBalanced(string s) {
         int n=s.length();
-        int maxlen=0;
-        for(int i=0;i<n;i++){
-            unordered_map<char,int>map;
 
+        int maximum=0;
+        for(int i=0;i<s.length();i++){
+            unordered_map<char,int>map;
             for(int j=i;j<n;j++){
                 map[s[j]]++;
 
-                if(j-i+1>maxlen){
-                    if(check(map)){
-                        maxlen=max(maxlen,j-i+1);
-                    }
+                if(isBalanced(map)){
+                    maximum=max(maximum,j-i+1);
                 }
             }
         }
-        return maxlen;
+        return maximum;
     }
 };
