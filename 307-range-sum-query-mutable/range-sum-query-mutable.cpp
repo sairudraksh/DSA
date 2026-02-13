@@ -2,25 +2,25 @@ class NumArray {
 public:
     vector<int>arr;
     vector<int>st;
-    void buildTree(vector<int>&arr,int i,int lo,int hi){
+    int n;
+    void buildTree(int i,int lo,int hi){
         if(lo==hi){
             st[i]=arr[lo];
             return;
         }
         int mid=lo+(hi-lo)/2;
-        buildTree(arr,2*i+1,lo,mid);
-        buildTree(arr,2*i+2,mid+1,hi);
+        buildTree(2*i+1,lo,mid);
+        buildTree(2*i+2,mid+1,hi);
         st[i]=st[2*i+1]+st[2*i+2];
     }
-    NumArray(vector<int>& nums) {
+    NumArray(vector<int>& nums){
+        n=nums.size();
         arr=nums;
-        int n=nums.size();
         st.resize(4*n);
-        buildTree(nums,0,0,n-1);
+        buildTree(0,0,n-1);
     }
     
     void update(int index, int val) {
-        int n=arr.size();
         updateValue(0,0,n-1,index,val);
     }
     void updateValue(int i,int lo,int hi,int &index,int &val){
@@ -28,27 +28,31 @@ public:
             st[i]=val;
             return;
         }
-
         int mid=lo+(hi-lo)/2;
 
-        if(index<=mid) updateValue(2*i+1,lo,mid,index,val);
+        if(mid>=index) updateValue(2*i+1,lo,mid,index,val);
         else updateValue(2*i+2,mid+1,hi,index,val);
+
         st[i]=st[2*i+1]+st[2*i+2];
     }
-    int find(int l,int r,int i,int lo,int hi){
-        if(l<=lo && hi<=r) return st[i];
+    int getSum(int i,int lo,int hi,int left,int right){
+        if(lo>right || hi<left) return 0;
+        if(lo>=left && hi<=right) return st[i];
 
-        if(r<lo || l>hi) return 0;
-        
         int mid=lo+(hi-lo)/2;
-
-        int a=find(l,r,2*i+1,lo,mid);
-        int b=find(l,r,2*i+2,mid+1,hi);
+        int a=getSum(2*i+1,lo,mid,left,right);
+        int b=getSum(2*i+2,mid+1,hi,left,right);
 
         return a+b;
     }
-
     int sumRange(int left, int right) {
-        return find(left,right,0,0,arr.size()-1);
+        return getSum(0,0,n-1,left,right);
     }
 };
+
+/**
+ * Your NumArray object will be instantiated and called as such:
+ * NumArray* obj = new NumArray(nums);
+ * obj->update(index,val);
+ * int param_2 = obj->sumRange(left,right);
+ */
