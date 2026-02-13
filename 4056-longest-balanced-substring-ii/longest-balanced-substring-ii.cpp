@@ -34,7 +34,7 @@ public:
         n=s.length();
         int count=1;
         int maxcount=0;
-
+        //case1
         for(int i=1;i<n;i++){
             if(s[i]==s[i-1]){
                 count++;
@@ -46,10 +46,13 @@ public:
         }
         maxcount=max(maxcount,count);
         
+        //case2
         maxcount=max(maxcount,find(s,'a','b'));
         maxcount=max(maxcount,find(s,'a','c'));
         maxcount=max(maxcount,find(s,'b','c'));
 
+
+        //case3
         unordered_map<string,int>map;
         int count1=0;
         int count2=0;
@@ -72,7 +75,7 @@ public:
 
             int diffA=count1-count2;
             int diffB=count1-count3;
-            string key=to_string(diffA)+"_"+to_string(diffB);
+            string key=to_string(diffA)+"_"+to_string(diffB);// we didnt tkae diffC(count2-count3) as it is determined by these 2 only
             if(map.count(key)){
                 maxcount=max(maxcount,i-map[key]);
             }
