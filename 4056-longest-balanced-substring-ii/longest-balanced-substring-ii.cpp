@@ -76,7 +76,7 @@ public:
             int diffA=count1-count2;
             int diffB=count1-count3;
             int diffC=count2-count3;
-            string key=to_string(diffA)+"_"+to_string(diffB);// we didnt tkae diffC(count2-count3) as it is determined by these 2 only
+            string key=to_string(diffA)+"_"+to_string(diffB);// we didnt tkae diffC(count2-count3) as it is determined by these 2 only mans its not possible that inn some combinatio count1-count2 and count1-count3 is same but count2-count3 is different
             if(map.count(key)){
                 maxcount=max(maxcount,i-map[key]);
             }
