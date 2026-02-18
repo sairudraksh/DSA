@@ -6,10 +6,7 @@ public:
     void find(vector<vector<int>>&grid){
         queue<int>q;
         auto v=grid[0];
-        for(int i=0;i<v.size();i++){
-            q.push(v[i]);
-            visited[v[i]]=1;
-        }
+        q.push(0);
         visited[0]=1;
 
         while(q.size()>0){
