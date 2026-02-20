@@ -3,7 +3,7 @@ public:
     int n;
     int m;
     vector<vector<int>>visited;
-    int find(vector<vector<int>>& grid,int idx1,int idx2,queue<pair<int,int>>&q){
+    int find(vector<vector<int>>& grid,queue<pair<int,int>>&q){
         int count=0;
         while(q.size()>0){
             int size=q.size();
@@ -40,7 +40,7 @@ public:
         return count;
     }
 
-    void markVisit(vector<vector<int>>& grid,int idx1,int idx2,queue<pair<int,int>>&q2){
+    void formQueue(vector<vector<int>>& grid,int idx1,int idx2,queue<pair<int,int>>&q2){
         queue<pair<int,int>>q;
         q.push({idx1,idx2});
         q2.push({idx1,idx2});
@@ -85,8 +85,8 @@ public:
                 if(grid[i][j]==1){
 
                     queue<pair<int,int>>q;
-                    markVisit(grid,i,j,q);
-                    return find(grid,i,j,q);
+                    formQueue(grid,i,j,q);
+                    return find(grid,q);
                 }
             }
         }
