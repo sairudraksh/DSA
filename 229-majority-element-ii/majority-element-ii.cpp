@@ -1,17 +1,13 @@
 class Solution {
 public:
     vector<int> majorityElement(vector<int>& nums) {
+        int k=nums.size()/3;
         sort(nums.begin(),nums.end());
         vector<int>v;
-        int count=1;
-        int n=nums.size();
-        for(int i=0;i<n;i++){
-            if(i<n-1 && nums[i]==nums[i+1] ) count++;
-            else{
-                if(count>(n/3)){
-                    v.push_back(nums[i]);
-                }
-                count=1;
+        for(int i=0;i<nums.size()-k;i++){
+            if(nums[i]==nums[i+k]){
+                if(v.size()>0 && v[v.size()-1]!=nums[i])v.push_back(nums[i]);
+                else if(v.size()==0) v.push_back(nums[i]);
             }
         }
         return v;
