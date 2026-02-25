@@ -14,6 +14,7 @@ public:
     vector<int>v;
     void find(TreeNode* root){
         if(root==NULL) return;
+
         v.push_back(root->val);
         find(root->left);
         find(root->right);
