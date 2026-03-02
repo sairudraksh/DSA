@@ -15,13 +15,8 @@ public:
     vector<string> validateCoupons(vector<string>& code, vector<string>& businessLine, vector<bool>& isActive) {
         int n=code.size();
         vector<vector<string>>v;
-        unordered_map<string,int>map;
-        map["electronics"]++;
-        map["grocery"]++;
-        map["pharmacy"]++;
-        map["restaurant"]++;
         for(int i=0;i<n;i++){
-            if(isActive[i]==true && map.find(businessLine[i])!=map.end()){
+            if(isActive[i]==true && (businessLine[i]=="electronics" || businessLine[i]=="grocery" || businessLine[i]=="pharmacy"|| businessLine[i]=="restaurant")){
                 v.push_back({businessLine[i],code[i]});
             }
         }
