@@ -1,22 +1,8 @@
 class Solution {
 public:
     bool checkOnesSegment(string s) {
-        if(s.length()==1) return true;
-        bool found=false;
-
-        int count=0;
-
-        for(int i=0;i<s.length();i++){
-            if(s[i]=='1'){
-                if(count==1 && found==false) return false;
-                else{
-                    count=1;
-                    found=true;
-                }
-            }
-            else{
-                found=false;
-            }
+        for(int i=0;i<s.length()-1;i++){
+            if(s[i]=='0' && s[i+1]=='1') return false;// as its give s wil start from one only
         }
         return true;
     }
