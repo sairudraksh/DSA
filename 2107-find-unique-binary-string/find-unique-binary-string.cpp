@@ -3,7 +3,7 @@ public:
     string ans="";
     unordered_map<string,int>map;
     int n;
-    void find(string s){
+    void find(string &s){
         if(s.length()==n){
             if(map.find(s)==map.end()){
                 ans=s;
