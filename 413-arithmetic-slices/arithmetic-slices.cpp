@@ -11,7 +11,7 @@ public:
         while(j<n){
             if(nums[j]-nums[j-1]==curr){
                 if(j-i+1>=3){
-                    ans=ans+(j-i-1);
+                    ans=ans+(j-i-1);// number of subarrays that could havce been formed
                 }
             }
             else{
