@@ -12,7 +12,7 @@ public:
 
         for(int i=0;i<stickers.size();i++){
 
-            if(stickers[i].find(ans[0]) == string::npos) continue;// skip if sticker is useless
+            if(stickers[i].find(ans[0]) == string::npos) continue;// skip if sticker is useless means already used
 
             int a=INT_MAX;
             unordered_map<char,int>map;
