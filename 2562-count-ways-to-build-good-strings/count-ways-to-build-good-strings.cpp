@@ -1,7 +1,7 @@
 class Solution {
 public:
     vector<int>dp;
-    int mod=1e9+7;
+    long long mod=1e9+7;
     int find(int &low,int &high,int &zero,int &one,int count){
         if(count>high) return 0;
         if(dp[count]!=-1) return dp[count];
@@ -15,6 +15,6 @@ public:
     }
     int countGoodStrings(int low, int high, int zero, int one) {
         dp.resize(high+1,-1);
-        return find(low,high,zero,one,0);
+        return find(low,high,zero,one,0)%mod;
     }
 };
