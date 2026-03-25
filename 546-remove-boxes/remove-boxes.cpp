@@ -9,7 +9,7 @@ public:
             r--;
             k++;
         }
-        if(dp[l][r][k]!=-1) return dp[l][r][k];// check here is this is the point where we woulld have stopped everytime
+        if(dp[l][r][k]!=-1) return dp[l][r][k];// check here is this is the point where we woulld have stopped everytime because above we will reach every time after r--;
         int res=find(boxes,l,r-1,0)+((k+1)*(k+1));
 
         for(int i=l;i<r;i++){
