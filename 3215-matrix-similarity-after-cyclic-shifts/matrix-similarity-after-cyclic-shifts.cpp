@@ -1,19 +1,13 @@
 class Solution {
 public:
-    bool find(vector<int>&v,int &k){
-        vector<int>v2=v;
-        for(int j=0;j<k;j++){
-            int num=0;
-            for(int i=0;i<v.size();i++){
-                if(i==0) num=v[0];
-
-                else v[i-1]=v[i];
-            }
-            v[v.size()-1]=num;
+    bool find(vector<int>v,int &k){
+        int n=v.size();
+        for(int i=0;i<n;i++){
+            v.push_back(v[i]);
         }
 
-        for(int i=0;i<v2.size();i++){
-            if(v[i]!=v2[i]) return false;
+        for(int i=0;i<n;i++){
+            if(v[i]!=v[i+k]) return false;
         }
         return true;
 
