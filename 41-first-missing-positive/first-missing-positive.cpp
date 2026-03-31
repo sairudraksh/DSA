@@ -13,7 +13,9 @@ public:
             else if(nums[i]!=nums[nums[i]-1]){
                 swap(nums[i],nums[nums[i]-1]);
             }
-            else i++;
+            else{
+                i++;
+            }
         }
 
         for(int k=0;k<n;k++){
