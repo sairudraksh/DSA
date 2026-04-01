@@ -46,7 +46,6 @@ public:
                         if(canChange[j]==true){
                             changed=true;
                             s[j]='b';
-                            canChange[j]=false;
                             break;
                         }
                     }
