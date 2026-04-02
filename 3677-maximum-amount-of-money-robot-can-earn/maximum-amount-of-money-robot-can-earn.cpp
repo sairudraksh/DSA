@@ -28,12 +28,12 @@ public:
         n=grid.size();
         m=grid[0].size();
         for(int i=0;i<501;i++){
-        for(int j=0;j<501;j++){
-            for(int k=0;k<3;k++){
-                dp[i][j][k] = INT_MAX;
+            for(int j=0;j<501;j++){
+                for(int k=0;k<3;k++){
+                    dp[i][j][k] = INT_MAX;
+                }
             }
         }
-    }
         return find(grid,0,0,2);
         
     }
