@@ -1,11 +1,7 @@
 class Solution {
 public:
     int mod=1e9+7;
-    int xorAfterQueries(vector<int>& nums1, vector<vector<int>>& queries) {
-        vector<long long>nums;
-        for(int i=0;i<nums1.size();i++){
-            nums.push_back(nums1[i]);
-        }
+    int xorAfterQueries(vector<int>& nums, vector<vector<int>>& queries) {
         for(int i=0;i<queries.size();i++){
             int l=queries[i][0];
             int r=queries[i][1];
@@ -13,7 +9,7 @@ public:
             int v=queries[i][3];
 
             while(l<=r){
-                nums[l]=(nums[l]*v)%mod;
+                nums[l]=(1LL* nums[l]*v)%mod;
                 l+=k;
             }
         }
