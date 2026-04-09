@@ -2,22 +2,22 @@ class Solution {
 public:
     vector<vector<int>> dp1, dp2;
 
-    int find(vector<int>& nums,int i,int count,bool takenfirst,int &k){
+    int find(vector<int>& nums,int i,int count,bool takenfirst,int &k){// use 2 dp so that one for if  takenfirst= true and other for false and 3d dp would give MLE
         if(count>=k) return 0;
         if(i>=nums.size()) return INT_MAX;
 
     
         if(takenfirst){
-            if(dp1[i][count] != -1) return dp1[i][count];
+            if(dp1[i][count]!=-1) return dp1[i][count];
         } else {
-            if(dp2[i][count] != -1) return dp2[i][count];
+            if(dp2[i][count]!=-1) return dp2[i][count];
         }
 
         int ans;
 
         if(i==nums.size()-1){
             if(takenfirst){
-                ans = find(nums,i+1,count,takenfirst,k);
+                ans=find(nums,i+1,count,takenfirst,k);
             }
             else{
                 int a=find(nums,i+2,count+1,takenfirst,k);
@@ -31,7 +31,7 @@ public:
 
                     a+=diff;
                 }
-                ans = a;
+                ans=a;
             }
         }
         else if(i==0){
@@ -64,7 +64,7 @@ public:
 
                 a+=diff;
             }
-            ans = min(a,b);
+            ans=min(a,b);
         }
 
         if(takenfirst){
