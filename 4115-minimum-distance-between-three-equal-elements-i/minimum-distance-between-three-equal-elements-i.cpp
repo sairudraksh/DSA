@@ -3,7 +3,7 @@ public:
     int minimumDistance(vector<int>& nums) {
         int n=nums.size();
         int minimum=INT_MAX;
-        for(int i=0;i<n;i++){
+        for(int i=0;i<n-2;i++){
             int num=nums[i];
             for(int j=i+1;j<n;j++){
                 if(nums[j]==num){
