@@ -1,5 +1,6 @@
 class Solution {
     void find(int n, ArrayList<String>ans,int close,int open,String s){
+        if(open>n || close>n) return;
         if(s.length()==n*2){
             if(open==close){
                 ans.add(s);
