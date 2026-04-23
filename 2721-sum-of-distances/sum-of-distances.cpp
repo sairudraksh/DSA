@@ -1,6 +1,6 @@
 class Solution {
 public:
-    vector<long long> distance(vector<int>& nums) {// for reference watch code with mik
+    vector<long long> distance(vector<int>& nums) {// for reference watch code with mik as formulae is derived
         int n=nums.size();
 
         unordered_map<int,long long>map1;
