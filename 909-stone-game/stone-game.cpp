@@ -17,7 +17,8 @@ public:
         for(int i=0;i<n;i++){
             sum+=piles[i];
         }
-        if(a==sum) return true;
-        return false;
+        int ans=sum-a;
+        if(ans>a) return false;
+        return true;
     }
 };
