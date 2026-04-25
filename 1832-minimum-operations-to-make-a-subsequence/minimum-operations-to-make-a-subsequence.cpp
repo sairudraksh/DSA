@@ -23,7 +23,7 @@ public:
             temp.push_back(num);
         }
         else{
-            int idx= lower_bound(temp.begin(), temp.end(), num) - temp.begin();
+            int idx= lower_bound(temp.begin(), temp.end(), num) - temp.begin();// gives index that is just greater than num for more reference watch LIS using BS of stiver
             temp[idx]=num;
         }
        }
