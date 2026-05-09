@@ -11,21 +11,18 @@
  */
 class Solution {
 public:
-    int dept(TreeNode* root){
-        if(root==NULL) return 0;
-        return 1+max(dept(root->left),dept(root->right));
+    bool res;
+    int find(TreeNode* root){
+        if(root==NULL) return true;
+        int left=find(root->left);
+        int right=find(root->right);
+
+        if(abs(left-right)>1) res=false;
+        return 1+max(left,right);
     }
     bool isBalanced(TreeNode* root) {
-        if(root==NULL) return true;
-
-        int left=dept(root->left);
-        int right=dept(root->right);
-
-        if(abs(right-left)>=2) return false;
-
-        bool a=isBalanced(root->left);
-        bool b=isBalanced(root->right);
-
-        return a && b;
+        res=true;
+        int a=find(root);
+        return res;
     }
 };
