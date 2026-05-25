@@ -7,6 +7,7 @@ public:
 
             int num=curr*10+i;
             if(num==0) continue;
+            if(num>n) break;
             find(num,n,v);
 
         }
