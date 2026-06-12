@@ -1,0 +1,1 @@
+SELECT firstname,lastname,city,state FROM Person AS a LEFT JOIN Address as b ON a.personId = b.personId;
