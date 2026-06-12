@@ -1,14 +1,15 @@
 class Solution {
 public:
-    vector<int>dp;
+    int n;
+    int dp[101];
     int find(vector<int>&nums,int i){
-        if(i>=nums.size()) return 0;
+        if(i>=n) return 0;
         if(dp[i]!=-1) return dp[i];
-        return dp[i]=max(find(nums,i+1),nums[i]+find(nums,i+2));
+        return dp[i]=max(nums[i]+find(nums,i+2),find(nums,i+1));
     }
     int rob(vector<int>& nums) {
-        int n=nums.size();
-        dp.resize(n+1,-1);
+        n=nums.size();
+        memset(dp,-1,sizeof(dp));
         return find(nums,0);
     }
 };
