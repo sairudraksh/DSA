@@ -1,15 +1,13 @@
 class Solution {
 public:
-    int maxIceCream(vector<int>& nums, int total) {
-        sort(nums.begin(),nums.end());
-        int count=0;
-        for(int i=0;i<nums.size();i++){
-            if(nums[i]>total) break;
-            else{
-                total-=nums[i];
-                count++;
-            }
+    int maxIceCream(vector<int>& costs, int coins) {
+        sort(costs.begin(),costs.end());
+        long long sum=0;
+        long long count=coins;
+        for(int i=0;i<costs.size();i++){
+            count-=costs[i];
+            if(count>=0) sum++;
         }
-        return count;
+        return sum;
     }
 };
