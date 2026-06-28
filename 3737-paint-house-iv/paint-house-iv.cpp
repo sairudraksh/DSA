@@ -6,15 +6,15 @@ public:
         if(i>t) return 0;
         if(dp[i][previ+1][prevj+1]!=-1) return dp[i][previ+1][prevj+1];
         if(i==t){
-            const auto &v1=cost[i];
+            auto &v1=cost[i];
             long long ans=LLONG_MAX;
             for(int l=0;l<v1.size();l++){
                 if(l+1!=previ && l+1!=prevj) ans=min(ans,1LL*v1[l]+find(n,cost,i+1,l+1,l+1));
             }
             return dp[i][previ+1][prevj+1]=ans;
         }
-        const auto &v1=cost[i];
-        const auto &v2=cost[t];
+        auto &v1=cost[i];
+        auto &v2=cost[t];
         long long ans=LLONG_MAX;
         for(int j=0;j<v1.size();j++){
             for(int l=0;l<v2.size();l++){
