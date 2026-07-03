@@ -19,12 +19,10 @@ public:
         while(j<n && i<n){
             freq2[word1[j]-'a']++;
 
-            if(istrue(freq1,freq2)){
+            while(istrue(freq1,freq2)){
                 count+=(n-j);
                 freq2[word1[i]-'a']--;
-                freq2[word1[j]-'a']--;
                 i++;
-                continue;
             }
             j++;
         }
