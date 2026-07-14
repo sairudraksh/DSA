@@ -23,7 +23,7 @@ public:
             int num=nums[i];
             for(int j=2;j*j<=num;j++){
                 if(num%j==0) st.insert(j);
-                if(num/j!=j) st.insert(num/j);
+                if(num/j!=j) st.insert(num/j);//important
             }
             if(num!=1) st.insert(num);
         }
