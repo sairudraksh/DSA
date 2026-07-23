@@ -16,7 +16,7 @@ public:
         if(dp[i][sum+OFFSET]!=-1) return dp[i][sum+OFFSET];
         
         bool a=find(nums,i+1,sum+nums[i]);
-        bool b=find(nums,i+1,sum-nums[i]);
+        bool b=find(nums,i+1,sum-nums[i]);//it will contribute its -ve or +ve value to  final solution as addiion and subtraction are commutative means order dont matter so make  dp either take +ve or -ve value
         
          return dp[i][sum+OFFSET]=a||b;
         
