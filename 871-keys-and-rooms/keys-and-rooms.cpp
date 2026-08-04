@@ -1,36 +1,33 @@
 class Solution {
 public:
-    int n;
-    int m;
     vector<int>visited;
-    void find(vector<vector<int>>&grid){
+    bool find(int i,vector<vector<int>>&rooms){
         queue<int>q;
-        auto v=grid[0];
-        q.push(0);
         visited[0]=1;
+        for(int j=0;j<rooms[i].size();j++){
+            q.push({rooms[i][j]});
+            visited[rooms[i][j]]=1;
+        }
 
         while(q.size()>0){
-            int val=q.front();
+            int currRoom=q.front();
             q.pop();
-
-            auto v1=grid[val];
-
-            for(int i=0;i<v1.size();i++){
-                if(visited[v1[i]]==0){
-                    q.push(v1[i]);
-                    visited[v1[i]]=1;
+            for(int j=0;j<rooms[currRoom].size();j++){
+                int nextRoom=rooms[currRoom][j];
+                if(visited[nextRoom]==0){
+                    q.push({rooms[currRoom][j]});
+                    visited[nextRoom]=1;
                 }
             }
         }
-    }
-    bool canVisitAllRooms(vector<vector<int>>& grid) {
-        n=grid.size();
-        m=grid[0].size();
-        visited.resize(n+1,0);
-        find(grid);
-        for(int i=0;i<grid.size();i++){
-            if(visited[i]==0) return false;
+        for(int j=0;j<visited.size();j++){
+            if(visited[j]==0) return false;
         }
         return true;
+    }
+    bool canVisitAllRooms(vector<vector<int>>& rooms){
+        int n=rooms.size();
+        visited.resize(n,0);
+        return find(0,rooms);
     }
 };
