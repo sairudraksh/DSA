@@ -1,8 +1,6 @@
 class Solution {
 public:
     string lastSubstring(string s) {
-        if(s=="xxbbxxbx") return "xxbx";
-        if(s=="baaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab") return "baaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab";
         string str="";
 
         int n=s.length();
@@ -22,6 +20,7 @@ public:
                     continue;
                 }
                 if(str.size()>0){
+                    str+=s[i];
                     if(str>ans){
                         ans=str;
                         idx=currIdx;
