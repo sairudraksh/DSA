@@ -24,6 +24,7 @@ public:
                 }
             }
             result=(result+(curr*curr))%mod;
+            if(curr==0) break;
         }
         return result;
     }
