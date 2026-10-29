@@ -1,21 +1,25 @@
 class Solution {
 public:
-    int lengthOfLongestSubstring(string nums) {
+    int lengthOfLongestSubstring(string s) {
+        unordered_map<char,int>map;
+
+        int n=s.length();
+
         int i=0;
         int j=0;
-        int n=nums.length();
-        int maxlength=0;
-        unordered_map<char,int>map;
+        int len=0;
+        int maxlen=0;
         while(j<n){
-            map[nums[j]]++;
-            while(i<n && map[nums[j]]>1){
-                map[nums[i]]--;
-                if(map[nums[i]]==0) map.erase(nums[i]);
+            map[s[j]]++;
+            while(map[s[j]]>1){
+                map[s[i]]--;
                 i++;
             }
-            maxlength=max(maxlength,j-i+1);
+            len=j-i+1;
+            maxlen=max(maxlen,len);
             j++;
+
         }
-        return maxlength;
+        return maxlen;
     }
 };
