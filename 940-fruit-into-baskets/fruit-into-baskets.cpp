@@ -2,12 +2,11 @@ class Solution {
 public:
     int totalFruit(vector<int>& nums) {
         int n=nums.size();
+        unordered_map<int,int>map;
 
         int i=0;
         int j=0;
-
-        unordered_map<int,int>map;
-        int maximum=0;
+        int maxlen=0;
         while(j<n){
             map[nums[j]]++;
 
@@ -16,10 +15,16 @@ public:
                 if(map[nums[i]]==0) map.erase(nums[i]);
                 i++;
             }
-
-            maximum=max(maximum,(j-i)+1);
+            if(map.size()<=2) maxlen=max(maxlen,j-i+1);
             j++;
         }
-        return maximum;
+        j--;
+        while(i<n){
+            if(map.size()<=2) maxlen=max(maxlen,j-i+1);
+            map[nums[i]]--;
+            if(map[nums[i]]==0) map.erase(nums[i]);
+            i++;
+        }
+        return maxlen;
     }
 };
