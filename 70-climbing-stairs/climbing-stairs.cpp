@@ -1,14 +1,14 @@
 class Solution {
 public:
-    vector<int>dp;
-    int find(int n){
-        if(n==0) return 1;
-        if(dp[n]!=-1) return dp[n];
-        if(n>=2) return dp[n]=(find(n-1) + find(n-2));
-        else return dp[n]=find(n-1);
+    int dp[46];
+    int find(int curr,int &n){
+        if(curr==n) return 1;
+        if(curr>n) return 0;
+        if(dp[curr]!=-1) return dp[curr];
+        return dp[curr]=(find(curr+1,n) + find(curr+2,n));
     }
     int climbStairs(int n) {
-        dp.resize(n+1,-1);
-        return find(n);
+        memset(dp,-1,sizeof(dp));
+        return find(0,n);
     }
 };
