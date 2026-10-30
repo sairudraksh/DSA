@@ -1,25 +1,27 @@
 class Solution {
 public:
-    int characterReplacement(string nums, int k) {
-        int n=nums.size();
-        int maxfreq=0;
-        int ans=0;
-        int l=0;
-        int r=0;
+    int characterReplacement(string s, int k) {
+        int n=s.length();
+        int maxlen=0;
 
         unordered_map<char,int>map;
-        while(r<n){
-            map[nums[r]]++;
-            maxfreq=max(maxfreq,map[nums[r]]);
 
-            if(r-l+1-maxfreq>k){
-                map[nums[l]]--;
-                if(map[nums[l]]==0) map.erase(nums[l]);//  we do not update maxfreq as we want now greater freq so we can get of same length but at a some poinnt we will get another window of maximum ans it will automitacially update 
-                l++;
+
+        int i=0;
+        int j=0;
+        int ans=0;
+        while(j<n){
+            map[s[j]]++;
+            maxlen=max(maxlen,map[s[j]]);
+
+            if((j-i+1)-maxlen>k){
+                map[s[i]]--;
+                i++;
             }
-            ans=max(ans,r-l+1);
-            r++;
+            ans=max(ans,j-i+1);
+            j++;
         }
+
         return ans;
     }
 };
