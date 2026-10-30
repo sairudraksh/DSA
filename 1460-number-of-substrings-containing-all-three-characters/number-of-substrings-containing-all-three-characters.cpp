@@ -18,20 +18,6 @@ public:
             j++;
         }
         j--;
-
-        map[s[i]]--;
-        if(map[s[i]]==0) map.erase(s[i]);
-        i++;
-
-        while(i<=j){
-            if(map.size()==3){
-                count++;
-                map[s[i]]--;
-                if(map[s[i]]==0) map.erase(s[i]);
-                i++;
-            }
-            else break;
-        }
         return count;
     }
 };
